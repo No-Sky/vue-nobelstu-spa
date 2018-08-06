@@ -19,7 +19,7 @@
           <router-link to="/search">
             <mu-bottom-nav-item value="search" title="搜索" icon="search"></mu-bottom-nav-item>
           </router-link>
-          <router-link to="">
+          <router-link to="/record">
             <mu-bottom-nav-item value="record" title="约课记录" icon="history"></mu-bottom-nav-item>
           </router-link>
           <router-link to="">

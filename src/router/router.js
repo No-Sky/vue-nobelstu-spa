@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Recommend from '../components/Recommed.vue'
 import Search from '../components/Search.vue'
+import Record from '../components/Record.vue'
 
 Vue.use(Router)
 
@@ -18,6 +19,10 @@ export default new Router({
       path: '/search',
       name: 'search',
       component: Search
+    },{
+      path: '/record',
+      name: 'record',
+      component: Record
     }
   ]
 })
