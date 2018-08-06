@@ -61,18 +61,20 @@
     </mu-carousel>
 
     <!--推荐教师-->
-    <mu-container style="margin-bottom: 45px;">
+    <mu-container>
       <mu-flex justify-content="center">
         <mu-paper>
           <mu-grid-list>
-            <mu-grid-tile v-for="(tile, index) in list" :key="index">
-              <img :src="tile.image" >
-              <span slot="title">{{tile.title}}</span>
-              <span slot="subTitle">by <b>{{tile.author}}</b></span>
-              <mu-button slot="action" icon>
-                <mu-icon value="star_border"></mu-icon>
-              </mu-button>
-            </mu-grid-tile>
+              <mu-grid-tile v-for="(tile, index) in list" :key="index">
+                  <!--<router-link :to="'/teacher?id='+index">-->
+                    <img :src="tile.image" >
+                    <span slot="title">{{tile.title}}</span>
+                    <!--<span slot="subTitle">by <b>{{tile.author}}</b></span>-->
+                    <mu-button slot="action" @click="toTeacherinfo(index)" icon>
+                      <mu-icon value="visibility" color="lightblue"></mu-icon>
+                    </mu-button>
+                  <!--</router-link>-->
+              </mu-grid-tile>
           </mu-grid-list>
         </mu-paper>
       </mu-flex>
@@ -106,60 +108,14 @@
           title: 'awdawd',
           image: 'https://images.pexels.com/photos/6803/light-rocks-pot-white.jpg',
           auther: 'fjawdjwapdjo'
-        },{
-          title: 'awdawd',
-          image: 'https://images.pexels.com/photos/6803/light-rocks-pot-white.jpg',
-          auther: 'fjawdjwapdjo'
-        },{
-          title: 'awdawd',
-          image: 'https://images.pexels.com/photos/6803/light-rocks-pot-white.jpg',
-          auther: 'fjawdjwapdjo'
-        },{
-          title: 'awdawd',
-          image: 'https://images.pexels.com/photos/6803/light-rocks-pot-white.jpg',
-          auther: 'fjawdjwapdjo'
-        },{
-          title: 'awdawd',
-          image: 'https://images.pexels.com/photos/6803/light-rocks-pot-white.jpg',
-          auther: 'fjawdjwapdjo'
-        },{
-          title: 'awdawd',
-          image: 'https://images.pexels.com/photos/6803/light-rocks-pot-white.jpg',
-          auther: 'fjawdjwapdjo'
-        },{
-          title: 'awdawd',
-          image: 'https://images.pexels.com/photos/6803/light-rocks-pot-white.jpg',
-          auther: 'fjawdjwapdjo'
-        },{
-          title: 'awdawd',
-          image: 'https://images.pexels.com/photos/6803/light-rocks-pot-white.jpg',
-          auther: 'fjawdjwapdjo'
-        },{
-          title: 'awdawd',
-          image: 'https://images.pexels.com/photos/6803/light-rocks-pot-white.jpg',
-          auther: 'fjawdjwapdjo'
-        },{
-          title: 'awdawd',
-          image: 'https://images.pexels.com/photos/6803/light-rocks-pot-white.jpg',
-          auther: 'fjawdjwapdjo'
-        },{
-          title: 'awdawd',
-          image: 'https://images.pexels.com/photos/6803/light-rocks-pot-white.jpg',
-          auther: 'fjawdjwapdjo'
-        },{
-          title: 'awdawd',
-          image: 'https://images.pexels.com/photos/6803/light-rocks-pot-white.jpg',
-          auther: 'fjawdjwapdjo'
-        },{
-          title: 'awdawd',
-          image: 'https://images.pexels.com/photos/6803/light-rocks-pot-white.jpg',
-          auther: 'fjawdjwapdjo'
         }
         ]
       }
     },
     methods: {
-
+      toTeacherinfo: function (id) {
+        this.$router.push({path: 'teacher',query: {id: id}});
+      }
     },
     mounted(){
 
@@ -176,5 +132,8 @@
   .container{
     padding-right: 2px;
     padding-left: 2px;
+  }
+  .mu-grid-tile-titlebar{
+    height: 20%;
   }
 </style>

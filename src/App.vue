@@ -1,13 +1,13 @@
 <template>
   <div id="app">
     <!--顶部-->
-    <div style="height: 46px;">
+    <div id="header" style="width: 100%;height: 46px; position: fixed;top:0;left:0;right:0;z-index:999;">
       <mu-appbar style="width: 100%; height:100%; text-align: center;" color="primary">
         NobelEdu
       </mu-appbar>
     </div>
 
-    <router-view></router-view>
+    <router-view style="margin-top: 46px;margin-bottom:80px;"></router-view>
 
     <!--底部导航-->
     <div style="position: fixed;bottom: 0;width: 100%;z-index: 999;">

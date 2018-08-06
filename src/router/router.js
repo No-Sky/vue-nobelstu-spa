@@ -4,6 +4,7 @@ import Recommend from '../components/Recommed.vue'
 import Search from '../components/Search.vue'
 import Record from '../components/Record.vue'
 import User from '../components/User.vue'
+import Teacher from '../components/Teacher.vue'
 
 Vue.use(Router)
 
@@ -28,6 +29,10 @@ export default new Router({
       path: '/user',
       name: 'user',
       component: User
+    },{
+      path: '/teacher',
+      name: 'teacher',
+      component: Teacher
     }
   ]
 })
