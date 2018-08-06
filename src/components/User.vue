@@ -1,6 +1,6 @@
 <template>
   <div>
-    <mu-container style="padding: 10px 0;">
+    <mu-container :style="avatarStyle">
       <mu-row justify-content="center">
         <mu-avatar :size="size">
           <img src="../assets/images/hnsoftedu.jpg">
@@ -41,11 +41,16 @@
   </div>
 </template>
 <script>
+  import bg from '../assets/images/4.jpg'
   export default {
     name: 'User',
     data () {
       return {
-        size: 165
+        size: 165,
+        avatarStyle: {
+          padding: '10px 0',
+          backgroundImage: 'url("'+bg+'")'
+        }
       }
     }
   }
