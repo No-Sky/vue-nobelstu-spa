@@ -11,29 +11,29 @@
           <mu-list textline="two-line">
             <mu-list-item avatar :ripple="false" button>
               <mu-list-item-content>
-                <mu-list-item-title>Ali Connors</mu-list-item-title>
-                <mu-list-item-sub-title style="color: rgba(0, 0, 0, .87)">Brunch this weekend?</mu-list-item-sub-title>
+                <mu-list-item-title>课程名： dmiaodm</mu-list-item-title>
+                <mu-list-item-sub-title style="color: rgba(0, 0, 0, .87)">开始时间：2018-08-12 12:30</mu-list-item-sub-title>
                 <mu-list-item-sub-title>
-                  I'll be in your neighborhood doing errands this weekend. Do you want to hang out?
+                  课程时长: 2小时
                 </mu-list-item-sub-title>
               </mu-list-item-content>
               <mu-list-item-action >
                 <mu-list-item-after-text>15 min</mu-list-item-after-text>
-                <mu-checkbox color="yellow700" v-model="selects" value="value1" uncheck-icon="star_border" checked-icon="star"></mu-checkbox>
+                <mu-button small color="warning">取消订单</mu-button>
               </mu-list-item-action>
             </mu-list-item>
             <mu-divider></mu-divider>
             <mu-list-item avatar :ripple="false" button>
               <mu-list-item-content>
-                <mu-list-item-title>me, Scrott, Jennifer</mu-list-item-title>
-                <mu-list-item-sub-title style="color: rgba(0, 0, 0, .87)">Summer BBQ</mu-list-item-sub-title>
+                <mu-list-item-title>课程名： dmiaodm</mu-list-item-title>
+                <mu-list-item-sub-title style="color: rgba(0, 0, 0, .87)">开始时间：2018-08-12 12:30</mu-list-item-sub-title>
                 <mu-list-item-sub-title>
-                  Wish I could come, but I'm out of town this weekend.
+                  课程时长: 2小时
                 </mu-list-item-sub-title>
               </mu-list-item-content>
               <mu-list-item-action >
-                <mu-list-item-after-text>2 hr</mu-list-item-after-text>
-                <mu-checkbox color="yellow700" v-model="selects" value="value2"  uncheck-icon="star_border" checked-icon="star"></mu-checkbox>
+                <mu-list-item-after-text>15 min</mu-list-item-after-text>
+                <mu-button small color="warning">取消订单</mu-button>
               </mu-list-item-action>
             </mu-list-item>
             <mu-divider></mu-divider>
@@ -45,29 +45,29 @@
           <mu-list textline="two-line">
             <mu-list-item avatar :ripple="false" button>
               <mu-list-item-content>
-                <mu-list-item-title>Ali Connors</mu-list-item-title>
-                <mu-list-item-sub-title style="color: rgba(0, 0, 0, .87)">Brunch this weekend?</mu-list-item-sub-title>
+                <mu-list-item-title>课程名： dmiaodm</mu-list-item-title>
+                <mu-list-item-sub-title style="color: rgba(0, 0, 0, .87)">开始时间：2018-08-12 12:30</mu-list-item-sub-title>
                 <mu-list-item-sub-title>
-                  I'll be in your neighborhood doing errands this weekend. Do you want to hang out?
+                  课程时长: 2小时
                 </mu-list-item-sub-title>
               </mu-list-item-content>
               <mu-list-item-action >
                 <mu-list-item-after-text>15 min</mu-list-item-after-text>
-                <mu-checkbox color="yellow700" v-model="selects" value="value1" uncheck-icon="star_border" checked-icon="star"></mu-checkbox>
+                <mu-button small color="primary">详情</mu-button>
               </mu-list-item-action>
             </mu-list-item>
             <mu-divider></mu-divider>
             <mu-list-item avatar :ripple="false" button>
               <mu-list-item-content>
-                <mu-list-item-title>me, Scrott, Jennifer</mu-list-item-title>
-                <mu-list-item-sub-title style="color: rgba(0, 0, 0, .87)">Summer BBQ</mu-list-item-sub-title>
+                <mu-list-item-title>课程名： dmiaodm</mu-list-item-title>
+                <mu-list-item-sub-title style="color: rgba(0, 0, 0, .87)">开始时间：2018-08-12 12:30</mu-list-item-sub-title>
                 <mu-list-item-sub-title>
-                  Wish I could come, but I'm out of town this weekend.
+                  课程时长: 2小时
                 </mu-list-item-sub-title>
               </mu-list-item-content>
               <mu-list-item-action >
-                <mu-list-item-after-text>2 hr</mu-list-item-after-text>
-                <mu-checkbox color="yellow700" v-model="selects" value="value2"  uncheck-icon="star_border" checked-icon="star"></mu-checkbox>
+                <mu-list-item-after-text>15 min</mu-list-item-after-text>
+                <mu-button small color="primary">详情</mu-button>
               </mu-list-item-action>
             </mu-list-item>
             <mu-divider></mu-divider>
@@ -79,29 +79,27 @@
           <mu-list textline="two-line">
             <mu-list-item avatar :ripple="false" button>
               <mu-list-item-content>
-                <mu-list-item-title>Ali Connors</mu-list-item-title>
-                <mu-list-item-sub-title style="color: rgba(0, 0, 0, .87)">Brunch this weekend?</mu-list-item-sub-title>
+                <mu-list-item-title>课程名： dmiaodm</mu-list-item-title>
+                <mu-list-item-sub-title style="color: rgba(0, 0, 0, .87)">开始时间：2018-08-12 12:30</mu-list-item-sub-title>
                 <mu-list-item-sub-title>
-                  I'll be in your neighborhood doing errands this weekend. Do you want to hang out?
+                  课程时长: 2小时
                 </mu-list-item-sub-title>
               </mu-list-item-content>
               <mu-list-item-action >
                 <mu-list-item-after-text>15 min</mu-list-item-after-text>
-                <mu-checkbox color="yellow700" v-model="selects" value="value1" uncheck-icon="star_border" checked-icon="star"></mu-checkbox>
               </mu-list-item-action>
             </mu-list-item>
             <mu-divider></mu-divider>
             <mu-list-item avatar :ripple="false" button>
               <mu-list-item-content>
-                <mu-list-item-title>me, Scrott, Jennifer</mu-list-item-title>
-                <mu-list-item-sub-title style="color: rgba(0, 0, 0, .87)">Summer BBQ</mu-list-item-sub-title>
+                <mu-list-item-title>课程名： dmiaodm</mu-list-item-title>
+                <mu-list-item-sub-title style="color: rgba(0, 0, 0, .87)">开始时间：2018-08-12 12:30</mu-list-item-sub-title>
                 <mu-list-item-sub-title>
-                  Wish I could come, but I'm out of town this weekend.
+                  课程时长: 2小时
                 </mu-list-item-sub-title>
               </mu-list-item-content>
               <mu-list-item-action >
-                <mu-list-item-after-text>2 hr</mu-list-item-after-text>
-                <mu-checkbox color="yellow700" v-model="selects" value="value2"  uncheck-icon="star_border" checked-icon="star"></mu-checkbox>
+                <mu-list-item-after-text>15 min</mu-list-item-after-text>
               </mu-list-item-action>
             </mu-list-item>
             <mu-divider></mu-divider>
