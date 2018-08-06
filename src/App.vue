@@ -22,7 +22,7 @@
           <router-link to="/record">
             <mu-bottom-nav-item value="record" title="约课记录" icon="history"></mu-bottom-nav-item>
           </router-link>
-          <router-link to="">
+          <router-link to="/user">
             <mu-bottom-nav-item value="user" title="账号" icon="person"></mu-bottom-nav-item>
           </router-link>
         </mu-bottom-nav>
