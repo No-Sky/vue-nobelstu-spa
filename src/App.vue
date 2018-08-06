@@ -13,10 +13,10 @@
     <div style="position: fixed;bottom: 0;width: 100%;z-index: 999;">
       <mu-container>
         <mu-bottom-nav :value.sync="shift">
-          <router-link to="{name: 'index'}">
+          <router-link to="/index">
             <mu-bottom-nav-item value="recommend" title="推荐" icon="home"></mu-bottom-nav-item>
           </router-link>
-          <router-link to="{name: 'search'}">
+          <router-link to="/search">
             <mu-bottom-nav-item value="search" title="搜索" icon="search"></mu-bottom-nav-item>
           </router-link>
           <router-link to="">
@@ -49,11 +49,6 @@
   @import '//fonts.useso.com/css?family=Roboto:300,400,500,700,400italic';
   @import 'http://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.css';
 
-  #app {
-    width: 100%;
-    height: 100%;
-    background-color: white;
-  }
  img{
     width:100%;
     height: 200px;
