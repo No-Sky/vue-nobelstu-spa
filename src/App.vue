@@ -3,6 +3,11 @@
     <!--顶部-->
     <div id="header" style="width: 100%;height: 46px; position: fixed;top:0;left:0;right:0;z-index:999;">
       <mu-appbar style="width: 100%; height:100%; text-align: center;" color="primary">
+        <mu-button
+          v-show="!(this.$route.path=='/index'||this.$route.path=='/search'||this.$route.path=='/record'||this.$route.path=='/user')"
+          @click="goBack" icon slot="left">
+          <mu-icon value="arrow_back"></mu-icon>
+        </mu-button>
         NobelEdu
       </mu-appbar>
     </div>
@@ -36,12 +41,20 @@
   export default {
     name: 'App',
     data () {
-      return {shift: 'recommend'}
+      return {
+        shift: 'recommend'
+      }
     },
     methods: {
+      goBack () {
+        this.$router.go(-1);
+      }
     },
     mounted(){
 
+    },
+    watch: {
+      // '$route': this.path=this.$route.path
     }
   }
 </script>

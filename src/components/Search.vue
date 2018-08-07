@@ -12,9 +12,9 @@
           <div class="mui-indexed-list-empty-alert">没有数据</div>
           <ul class="mui-table-view">
             <li data-group="teacher" class="mui-table-view-divider mui-indexed-list-group">教师</li>
-              <li  data-value="马某" data-tags="m" class="mui-table-view-cell mui-indexed-list-item">马某</li>
+              <li @click="toTeacherinfo(0)" data-value="马某" data-tags="m" class="mui-table-view-cell mui-indexed-list-item">马某</li>
             <li data-group="course" class="mui-table-view-divider mui-indexed-list-group">课程</li>
-              <li  data-value="课1" data-tags="k" class="mui-table-view-cell mui-indexed-list-item">课1<span class="mui-pull-right" style="font-size: 12px;">授课教师：马某</span></li>
+              <li @click="toTeacherinfo(0)" data-value="课1" data-tags="k" class="mui-table-view-cell mui-indexed-list-item">课1<span class="mui-pull-right" style="font-size: 12px;">授课教师：马某</span></li>
           </ul>
         </div>
       </div>
@@ -47,14 +47,15 @@
   </div>
 </template>
 <script>
-  // import mui from '../assets/mui/js/mui.js';
-  // require('../assets/mui/js/mui.indexlist.js')
-  // require('../assets/mui/js/mu.min.css')
-  // require('../assets/mui/js/mui-indexlist.css')
   export default {
     name: 'Search',
     data () {
       return {
+      }
+    },
+    methods: {
+      toTeacherinfo (id) {
+        this.$router.push({path: 'teacher',query: {id: id}});
       }
     },
     mounted () {

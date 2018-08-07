@@ -6,8 +6,8 @@
         <mu-tab>已确认</mu-tab>
         <mu-tab>已拒绝</mu-tab>
       </mu-tabs>
-      <div class="demo-text" v-if="active3 === 0">
-        <mu-paper :z-depth="1" class="demo-list-wrap">
+      <div v-if="active3 === 0">
+        <mu-paper :z-depth="1">
           <mu-list textline="two-line">
             <mu-list-item avatar :ripple="false" button>
               <mu-list-item-content>
@@ -40,8 +40,8 @@
           </mu-list>
         </mu-paper>
       </div>
-      <div class="demo-text" v-if="active3 === 1">
-        <mu-paper :z-depth="1" class="demo-list-wrap">
+      <div v-if="active3 === 1">
+        <mu-paper :z-depth="1" >
           <mu-list textline="two-line">
             <mu-list-item avatar :ripple="false" button>
               <mu-list-item-content>
@@ -74,8 +74,8 @@
           </mu-list>
         </mu-paper>
       </div>
-      <div class="demo-text" v-if="active3 === 2">
-        <mu-paper :z-depth="1" class="demo-list-wrap">
+      <div v-if="active3 === 2">
+        <mu-paper :z-depth="1">
           <mu-list textline="two-line">
             <mu-list-item avatar :ripple="false" button>
               <mu-list-item-content>

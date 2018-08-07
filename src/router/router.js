@@ -5,6 +5,8 @@ import Search from '../components/Search.vue'
 import Record from '../components/Record.vue'
 import User from '../components/User.vue'
 import Teacher from '../components/Teacher.vue'
+import FreeTime from '../components/FreeTime.vue'
+import Order from '../components/Order.vue'
 
 Vue.use(Router)
 
@@ -33,6 +35,14 @@ export default new Router({
       path: '/teacher',
       name: 'teacher',
       component: Teacher
+    },{
+      path: '/freetime',
+      name: 'freetime',
+      component: FreeTime
+    },{
+      path: '/order',
+      name: 'order',
+      component: Order
     }
   ]
 })

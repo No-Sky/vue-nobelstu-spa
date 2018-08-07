@@ -39,7 +39,7 @@
         </mu-list-item>
         <mu-divider></mu-divider>
         <mu-list-item button :ripple="false">
-          <mu-button style="margin: 0 auto;" color="primary">预定课程</mu-button>
+            <mu-button style="margin: 0 auto;" color="primary" to="/freetime">预定课程</mu-button>
         </mu-list-item>
       </mu-list>
     </mu-paper>
@@ -60,7 +60,7 @@
       }
     },
     created: function () {
-      var obj = this.$router.query;
+      var obj = this.$route.query;
       console.log(obj);
     }
   }
