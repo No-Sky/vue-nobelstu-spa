@@ -138,7 +138,7 @@ export default {
       let roundedCanvas;
 
       // Crop
-      document.querySelector('.crop_loading')[0].style.display = 'block';
+      document.querySelector('.crop_loading').style.display = 'block';
 
       setTimeout(function () {
         croppedCanvas = self.cropper.getCroppedCanvas();
@@ -206,8 +206,8 @@ export default {
       self.destoried();
 
       window.setTimeout( function () {
-        document.querySelector('.crop_loading')[0].style.display = 'none';
-        document.querySelector('.crop_success')[0].style.display = 'block';
+        document.querySelector('.crop_loading').style.display = 'none';
+        document.querySelector('.crop_success').style.display = 'block';
         //裁剪完后摧毁对象
           self.destoried();
       },3000)

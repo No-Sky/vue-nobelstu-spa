@@ -51,13 +51,9 @@
   <!--页面主内容区结束-->
   <!-- 修改信息模态框 -->
   <div id="modal" class="mui-modal bm_modal">
-    <!--<header class="mui-bar mui-bar-nav">
-      <a class="mui-icon mui-icon-close mui-pull-right" href="#modal"></a>
-      <h1 class="mui-title">修改信息</h1>
-    </header>-->
     <div style="margin-top: 2px;">
       <mu-paper :z-depth="1">
-      <mu-form :model="form" class="mu-demo-form" label-position="left" label-width="100">
+      <mu-form :model="user" class="mu-demo-form" label-position="left" label-width="100">
         <input name="stuid" type="hidden" v-model="user.id"/>
           <mu-list textline="two-line">
             <mu-list-item>
@@ -74,15 +70,15 @@
             <mu-divider></mu-divider>
             <mu-list-item>
               <mu-form-item prop="radio" label="性别：">
-                <mu-radio v-model="user.sex" value="男" label="Male"></mu-radio>
-                <mu-radio v-model="user.sex" value="女" label="Female"></mu-radio>
+                <mu-radio v-model="user.sex" value="男" label="男"></mu-radio>
+                <mu-radio v-model="user.sex" value="女" label="女"></mu-radio>
               </mu-form-item>
             </mu-list-item>
             <mu-divider></mu-divider>
             <mu-list-item>
               <mu-form-item prop="select" label="年龄：">
                 <mu-select v-model="user.age">
-                  <mu-option v-for="option,index in options" :key="option" :label="option" :value="option"></mu-option>
+                  <mu-option v-for="(option,index) in options" :key="index" :label="option+''" :value="option"></mu-option>
                 </mu-select>
               </mu-form-item>
             </mu-list-item>
