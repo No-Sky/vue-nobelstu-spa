@@ -7,6 +7,8 @@ import User from '../components/User.vue'
 import Teacher from '../components/Teacher.vue'
 import FreeTime from '../components/FreeTime.vue'
 import Order from '../components/Order.vue'
+import RecordDetail from '../components/RecordDetail.vue'
+import Grade from '../components/Grade.vue'
 
 Vue.use(Router)
 
@@ -43,6 +45,14 @@ export default new Router({
       path: '/order',
       name: 'order',
       component: Order
+    },{
+      path: '/recorddetail',
+      name: 'recorddetail',
+      component: RecordDetail
+    },{
+      path: '/grade',
+      name: 'grade',
+      component: Grade
     }
   ]
 })

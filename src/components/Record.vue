@@ -53,7 +53,7 @@
               </mu-list-item-content>
               <mu-list-item-action >
                 <mu-list-item-after-text>15 min</mu-list-item-after-text>
-                <mu-button small color="primary">详情</mu-button>
+                <mu-button small color="primary" to="/recorddetail">详情</mu-button>
               </mu-list-item-action>
             </mu-list-item>
             <mu-divider></mu-divider>
@@ -120,5 +120,35 @@
   }
 </script>
 <style>
+  .table {
+    font-family:"Microsoft YaHei",微软雅黑,"MicrosoftJhengHei",华文细黑,STHeiti,MingLiu;
+    margin-top: 5px;
+    border: 1px solid #cad9ea;
+    color: #666;
+  }
 
+  .table th {
+    background-repeat: repeat-x;
+    height: 30px;
+  }
+
+  .table td,
+  .table th {
+    border: 1px solid #cad9ea;
+    padding: 0 1em 0;
+  }
+
+  .table tr.alter {
+    background-color: #f5fafe;
+  }
+  .table th{
+    background-color: navajowhite;
+  }
+  .table tr{
+    background-color: wheat;
+  }
+  .btn-box{
+    margin-top: 5px;
+    text-align: center;
+  }
 </style>
