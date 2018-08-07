@@ -35,20 +35,20 @@
 <script>
   export default {
     mounted () {
-      var score;
+      let score;
       mui('.icons').on('tap', 'i', function() {
-        var index = parseInt(this.getAttribute("data-index"));
-        var parent = this.parentNode;
-        var children = parent.children;
+        let index = parseInt(this.getAttribute("data-index"));
+        let parent = this.parentNode;
+        let children = parent.children;
         if(this.classList.contains("mui-icon-star")) { //点击的那个之前如果由空心的星星变成实心的
-          for(var i = 0; i < index; i++) {
+          for(let i = 0; i < index; i++) {
             children[i].classList.remove('mui-icon-star'); //star是空心的星星
             children[i].classList.add('mui-icon-star-filled'); //filled是实心的黄色星星
           }
         } else {
-          for(var i = index; i < 5; i++) { //点击的那个之后由实心的星星变成空心的
-            children[i].classList.add('mui-icon-star')
-            children[i].classList.remove('mui-icon-star-filled')
+          for(let i = index; i < 5; i++) { //点击的那个之后由实心的星星变成空心的
+            children[i].classList.add('mui-icon-star');
+            children[i].classList.remove('mui-icon-star-filled');
           }
         }
         //打了几颗星呢

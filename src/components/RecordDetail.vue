@@ -68,10 +68,10 @@
       }
     },
     mounted () {
-      var parent = document.getElementById("star");
-      var children = parent.children;
-      var _score = this.score;
-      for(var i=0;i<_score;i++){
+      let parent = document.getElementById("star");
+      let children = parent.children;
+      let _score = this.score;
+      for(let i=0;i<_score;i++){
         children[i].classList.add('mui-icon-star-filled');
       }
     }

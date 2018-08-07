@@ -60,8 +60,8 @@
     },
     mounted () {
       mui.ready(function () {
-        var header = document.getElementById('header');
-        var list = document.getElementById('list');
+        let header = document.getElementById('header');
+        let list = document.getElementById('list');
         //calc hieght
         list.style.height = (document.body.offsetHeight - header.offsetHeight) + 'px';
         //create

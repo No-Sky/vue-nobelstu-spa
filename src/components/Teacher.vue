@@ -60,7 +60,7 @@
       }
     },
     created: function () {
-      var obj = this.$route.query;
+      let obj = this.$route.query;
       console.log(obj);
     }
   }
