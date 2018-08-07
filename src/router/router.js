@@ -9,8 +9,10 @@ import FreeTime from '../components/FreeTime.vue'
 import Order from '../components/Order.vue'
 import RecordDetail from '../components/RecordDetail.vue'
 import Grade from '../components/Grade.vue'
+import Userinfo from '../components/Userinfo.vue'
+import About from '../components/About.vue'
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [
@@ -53,6 +55,14 @@ export default new Router({
       path: '/grade',
       name: 'grade',
       component: Grade
+    },{
+      path: '/userinfo',
+      name: 'userinfo',
+      component: Userinfo
+    },{
+      path: '/about',
+      name: 'about',
+      component: About
     }
   ]
 })

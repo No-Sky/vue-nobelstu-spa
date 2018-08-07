@@ -122,7 +122,7 @@
     }
   }
 </script>
-<style>
+<style scoped>
   /*@import '//fonts.useso.com/css?family=Roboto:300,400,500,700,400italic';*/
   /*@import 'http://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.css';*/
   img{
