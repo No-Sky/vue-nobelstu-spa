@@ -11,6 +11,9 @@ import RecordDetail from '../components/RecordDetail.vue'
 import Grade from '../components/Grade.vue'
 import Userinfo from '../components/Userinfo.vue'
 import About from '../components/About.vue'
+import Login from '../components/Login.vue'
+import Reg from '../components/Reg.vue'
+import ForgetPwd from '../components/ForgetPwd.vue'
 
 Vue.use(Router);
 
@@ -63,6 +66,18 @@ export default new Router({
       path: '/about',
       name: 'about',
       component: About
+    },{
+      path: '/login',
+      name: 'login',
+      component: Login
+    },{
+      path: '/reg',
+      name: 'reg',
+      component: Reg
+    },{
+      path: '/forgetpwd',
+      name: 'foegetpwd',
+      component: ForgetPwd
     }
   ]
 })

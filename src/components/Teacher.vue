@@ -13,15 +13,21 @@
           hello everyone
         </mu-list-item>
         <mu-divider></mu-divider>
-        <div style="margin-left: 20%;font-size: 16px; ">
-          <mu-icon value="person" color="blue"></mu-icon>某某某<br/>
-          <mu-icon value="phone" color="blue"></mu-icon>111111<br/>
-          <mu-icon value="mail" color="blue"></mu-icon>111111<br/>
+        <div style="margin-left: 5%;font-size: 16px; ">
+          <div>
+            <mu-icon value="person" color="blue"></mu-icon>&nbsp;&nbsp;<span>某某某</span>
+          </div>
+          <div>
+            <mu-icon value="call" color="blue"></mu-icon>&nbsp;&nbsp;<span>1234567898</span>
+          </div>
+          <div>
+            <mu-icon value="mail" color="blue"></mu-icon>&nbsp;&nbsp;<span>123@teacher.com</span>
+          </div>
         </div>
         <mu-divider></mu-divider>
         <mu-list-item button :ripple="true" nested :open="toggle === 'class'" @toggle-nested="toggle = arguments[0] ? 'class' : ''">
           <mu-list-item-action>
-            <mu-icon value="class"></mu-icon>
+            <mu-icon value="class" color="primary"></mu-icon>
           </mu-list-item-action>
           <mu-list-item-title>教授课程</mu-list-item-title>
           <mu-list-item-action>
@@ -65,5 +71,8 @@
     }
   }
 </script>
-<style>
+<style scoped>
+  .material-icons{
+    font-size: 18px;
+  }
 </style>

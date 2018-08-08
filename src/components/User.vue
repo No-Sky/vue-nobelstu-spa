@@ -9,6 +9,13 @@
     </mu-container>
     <mu-paper :z-depth="1">
       <mu-list toggle-nested>
+        <mu-list-item button :ripple="true" to="/login">
+          <mu-list-item-action>
+            <mu-icon value="input"></mu-icon>
+          </mu-list-item-action>
+          <mu-list-item-title>登录</mu-list-item-title>
+        </mu-list-item>
+        <mu-divider></mu-divider>
         <mu-list-item button :ripple="true" to="/userinfo">
           <mu-list-item-action>
             <mu-icon value="person"></mu-icon>
@@ -21,6 +28,13 @@
             <mu-icon value="grade"></mu-icon>
           </mu-list-item-action>
           <mu-list-item-title>关于</mu-list-item-title>
+        </mu-list-item>
+        <mu-divider></mu-divider>
+        <mu-list-item button :ripple="true">
+          <mu-list-item-action>
+            <mu-icon value="power_settings_new"></mu-icon>
+          </mu-list-item-action>
+          <mu-list-item-title>退出登录</mu-list-item-title>
         </mu-list-item>
       </mu-list>
     </mu-paper>
