@@ -1,18 +1,18 @@
 <template>
   <div>
     <div class="mui-content">
-      <form id='login-form' action="${pageContext.request.contextPath }/login" class="mui-input-group" method="post">
-        <div class="mui-input-row">
-          <label>账号</label>
-          <input id='account'  type="text" name="stuemail" class="mui-input-clear mui-input" placeholder="请输入登录邮箱">
-        </div>
-        <div class="mui-input-row">
-          <label>密码</label>
-          <input id='password'  type="password" name="stupwd" class="mui-input-clear mui-input" placeholder="请输入密码">
-        </div>
-      </form>
+    <form id='login-form' class="mui-input-group">
+      <div class="mui-input-row">
+        <label>账号</label>
+        <input id='account' v-model="user.stuemail" type="text" name="stuemail" class="mui-input-clear mui-input" placeholder="请输入登录邮箱">
+      </div>
+      <div class="mui-input-row">
+        <label>密码</label>
+        <input id='password' v-model="user.stupwd" type="password" name="stupwd" class="mui-input-clear mui-input" placeholder="请输入密码">
+      </div>
+    </form>
       <div class="mui-content-padded">
-        <button id='login'  class="mui-btn mui-btn-block mui-btn-primary">登录</button>
+        <button id='login' @click="login"  class="mui-btn mui-btn-block mui-btn-primary">登录</button>
         <div class="link-area">
           <router-link to="/reg">注册账号</router-link>
           <span class="spliter">|</span>
@@ -20,13 +20,66 @@
         </div>
       </div>
     </div>
-  </div>
+    </div>
 </template>
 <script>
-  export default {}
+  import {mapActions} from 'vuex'
+  export default {
+    data () {
+      let checkUserName = (rule, value, cb) => {
+        if (!value) {
+          return cb(new Error('账户不能为空!'))
+        } else {
+          cb(); // 将判断传递给后面
+        }
+      }
+      let checkPassword = (rule, value, cb) => {
+        if (!value) {
+          return cb(new Error('密码不能为空!'))
+        } else {
+          cb();
+        }
+      }
+      return {
+        user: {
+          stuemail: '',
+          stupwd: ''
+        },
+        checkUserName,
+        checkPassword
+      }
+    },
+    methods: {
+      ...mapActions(['userLogin']),
+      login: function(){
+        let loginStudent = {
+          stuemail: this.user.stuemail,
+          stupwd: this.$md5.hex(this.user.stupwd)
+        }
+       this.$http.post(this.$api.login,loginStudent).then(res => {
+         if (res.data.code==0) {
+           this.userLogin(res.data.data);
+           //消息提示
+           this.$toast.success(res.data.message)
+           // let user = localStorage.getItem('user');
+           // console.log(JSON.parse(user));
+           // 登录成功 跳转至首页
+           this.$router.push('/index')
+         }else{
+           //消息提示
+           this.$toast.error(res.data.message);
+           return false;
+         }
+       }).catch(err => {
+         //消息提示
+         this.$toast.error(err.message)
+       })
+      }
+    }
+  }
 </script>
 <style scoped>
-  .ui-page-login, {
+  .ui-page-login {
     width: 100%;
     height: 100%;
     margin: 0px;

@@ -5,15 +5,18 @@
         <mu-list>
           <mu-list-item avatar style="margin-top:50px;">
             <mu-avatar :size="size">
-              <img :src="headimg">
+              <img :src="!isLogin?headimg:user.stuprofilephoto">
             </mu-avatar>
           </mu-list-item>
-          <mu-list-item button style="margin-top: 45px;" to="/login" @click="closeDrawer">
+          <mu-list-item v-if="!isLogin" button style="margin-top: 45px;" to="/login" @click="closeDrawer">
             <mu-icon value="input" color="primary"></mu-icon>&nbsp;&nbsp;
             请登录
           </mu-list-item>
+          <mu-list-item v-else button style="margin-top: 45px;" to="/login" @click="closeDrawer">
+            NobelEdu账号： {{user.stuemail}}
+          </mu-list-item>
           <mu-divider></mu-divider>
-          <mu-list-item button to="/userinfo" @click="closeDrawer">
+          <mu-list-item button to="name: 'userinfo'}" @click="closeDrawer">
             <mu-icon value="person" color="primary"></mu-icon>&nbsp;&nbsp;
             账号与安全
           </mu-list-item>
@@ -23,7 +26,11 @@
             联系我们
           </mu-list-item>
           <mu-divider></mu-divider>
-          <mu-list-item  button @click="closeDrawer">
+          <mu-list-item v-if="!isLogin" button @click="closeDrawer">
+            <mu-icon value="assignment_ind" color="primary"></mu-icon>&nbsp;&nbsp;
+            注册
+          </mu-list-item>
+          <mu-list-item v-else button @click="closeDrawer">
             <mu-icon value="power_settings_new" color="primary"></mu-icon>&nbsp;&nbsp;
             退出登录
           </mu-list-item>
@@ -44,21 +51,24 @@
           @click="goBack" icon slot="left">
           <mu-icon value="arrow_back"></mu-icon>
         </mu-button>
-        <mu-button
-          v-show="(this.$route.path=='/search'||this.$route.path=='/login'||this.$route.path=='/reg'||this.$route.path=='/forgetpwd')"
+        <mu-button to="/index"
+          v-show="!(this.$route.path=='/index')"
           icon slot="right">
-          <mu-icon value=""></mu-icon>
+          <mu-icon value="home"></mu-icon>
         </mu-button>
-        <mu-button
-          v-show="!(this.$route.path=='/search'||this.$route.path=='/login'||this.$route.path=='/reg'||this.$route.path=='/forgetpwd')"
-          to="/search" icon slot="right">
+        <mu-button to="/search"
+          v-show="this.$route.path=='/index'"
+          icon slot="right">
           <mu-icon value="search"></mu-icon>
         </mu-button>
         NobelEdu
       </mu-appbar>
     </div>
 
-    <router-view style="margin-top: 46px;margin-bottom:80px;"></router-view>
+    <keep-alive>
+      <router-view style="margin-top: 46px"></router-view>
+    </keep-alive>
+
 
     <!--底部导航-->
     <!--<div style="position: fixed;bottom: 0;width: 100%;z-index: 999;">
@@ -86,6 +96,20 @@ import slidebg from './assets/images/sidebar-1.jpg'
     name: 'App',
     data () {
       return {
+        isLogin: false,
+        user: {
+          roleid: '',
+          stuid: '',
+          stuname: '',
+          stuemail: '',
+          stupwd: "",
+          stuemailcheck: '',
+          stuprofilephoto: "",
+          stuage: 0,
+          stusex: "",
+          stuaddress: '',
+          stutel: ""
+        },
         headimg,
         slideStyle: {
           padding: '10px 0',
@@ -98,11 +122,44 @@ import slidebg from './assets/images/sidebar-1.jpg'
         shift: 'recommend'
       }
     },
+    /*beforeCreate(){
+      // 当主页刷新时，如果服务端设置的cookie（包含sessionId）
+      // 的时效到了的话，便会提示未登录
+      this.$http.get(this.$api.session)
+        .then(res => {
+          console.dir(res.data)
+          if (res.data.code==500) {
+            this.$toast.error(res.data.message);
+            this.user = null;
+            return false;
+          }else{
+            let user = localStorage.getItem('user');
+            if (user) {
+              this.user = JSON.parse(user);
+            }
+          }
+        })
+        .catch(err => {
+          this.$toast.error(err.message)
+        })
+
+    },*/
+    created () {
+      this.getUser();
+      this.isLogin = JSON.stringify(this.user)=={}?false:true;
+      console.log(this.isLogin);
+    },
     methods: {
-      goBack () {
+      getUser: function(){
+        let user = localStorage.getItem('user');
+        if(user)
+          this.user = JSON.parse(user);
+        console.log(this.user);
+      },
+      goBack: function () {
         this.$router.go(-1);
       },
-      closeDrawer () {
+      closeDrawer: function () {
         this.open = false;
       }
     },

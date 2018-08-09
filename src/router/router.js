@@ -3,7 +3,6 @@ import Router from 'vue-router'
 import Recommend from '../components/Recommed.vue'
 import Search from '../components/Search.vue'
 import Record from '../components/Record.vue'
-import User from '../components/User.vue'
 import Teacher from '../components/Teacher.vue'
 import FreeTime from '../components/FreeTime.vue'
 import Order from '../components/Order.vue'
@@ -25,19 +24,27 @@ export default new Router({
     }, {
       path: '/index',
       name: 'index',
+      meta: {
+        title: '主页',
+        keep_alive: true  // true 表示需要使用缓存
+      },
       component: Recommend
     },{
       path: '/search',
       name: 'search',
+      meta: {
+        title: '搜索页',
+        keep_alive: true  // true 表示需要使用缓存
+      },
       component: Search
     },{
       path: '/record',
       name: 'record',
+      // 路由元信息 meta
+      meta: {
+        requireLogin: true // 添加该字段，表示进入这个路由是需要登录的
+      },
       component: Record
-    },{
-      path: '/user',
-      name: 'user',
-      component: User
     },{
       path: '/teacher',
       name: 'teacher',
@@ -45,26 +52,50 @@ export default new Router({
     },{
       path: '/freetime',
       name: 'freetime',
+      // 路由元信息 meta
+      meta: {
+        requireLogin: true // 添加该字段，表示进入这个路由是需要登录的
+      },
       component: FreeTime
     },{
       path: '/order',
       name: 'order',
+      // 路由元信息 meta
+      meta: {
+        requireLogin: true // 添加该字段，表示进入这个路由是需要登录的
+      },
       component: Order
     },{
       path: '/recorddetail',
       name: 'recorddetail',
+      // 路由元信息 meta
+      meta: {
+        requireLogin: true // 添加该字段，表示进入这个路由是需要登录的
+      },
       component: RecordDetail
     },{
       path: '/grade',
       name: 'grade',
+      // 路由元信息 meta
+      meta: {
+        requireLogin: true // 添加该字段，表示进入这个路由是需要登录的
+      },
       component: Grade
     },{
       path: '/userinfo',
       name: 'userinfo',
+      // 路由元信息 meta
+      meta: {
+        requireLogin: true // 添加该字段，表示进入这个路由是需要登录的
+      },
       component: Userinfo
     },{
       path: '/about',
       name: 'about',
+      meta: {
+        title: '用户信息页',
+        keep_alive: true  // true 表示需要使用缓存
+      },
       component: About
     },{
       path: '/login',

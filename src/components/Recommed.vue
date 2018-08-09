@@ -1,49 +1,5 @@
 <template>
   <div>
-    <!--侧边栏-->
-    <!--<mu-container >
-      <mu-drawer :open.sync="open" :docked="false" >
-        <mu-list>
-          <router-link :to="{'name':'login'}" v-if="!userinfo">
-            <mu-list-item button :ripple="false">
-              <mu-list-item-action title="登陆">
-                <mu-icon value="person_outline"></mu-icon>
-              </mu-list-item-action>
-              <mu-list-item-title>登陆</mu-list-item-title>
-            </mu-list-item>
-          </router-link>
-          <router-link :to="{'name':'person'}" v-if="userinfo">
-            <mu-list-item button :ripple="false">
-              <mu-list-item-action title="个人中心">
-                <mu-avatar>
-                  <img  v-bind:src="userinfo.PicUrl">
-                </mu-avatar>
-              </mu-list-item-action>
-              <mu-list-item-title>{{userinfo.UsereName}}</mu-list-item-title>
-
-            </mu-list-item>
-          </router-link>
-          <mu-divider />
-          <router-link :to="{'name':'index'}">
-            <mu-list-item button :ripple="false">
-              <mu-list-item-action title="阅读历史">
-                <mu-icon value="import_contacts"></mu-icon>
-              </mu-list-item-action>
-              <mu-list-item-title>阅读历史</mu-list-item-title>
-            </mu-list-item>
-          </router-link>
-          <router-link :to="{'name':'login'}">
-            <mu-list-item button :ripple="false">
-              <mu-list-item-action title="关于">
-                <mu-icon value="priority_high"></mu-icon>
-              </mu-list-item-action>
-              <mu-list-item-title>关于</mu-list-item-title>
-            </mu-list-item>
-          </router-link>
-        </mu-list>
-      </mu-drawer>
-    </mu-container>-->
-
     <!--轮播图-->
     <mu-carousel transition="fade" style="width:100%;height: 200px;" >
       <mu-carousel-item>
@@ -67,10 +23,10 @@
           <mu-grid-list>
               <mu-grid-tile v-for="(tile, index) in list" :key="index">
                   <!--<router-link :to="'/teacher?id='+index">-->
-                    <img :src="tile.image" >
-                    <span slot="title">{{tile.title}}</span>
+                    <img :src="tile.teacherprofilephoto" >
+                    <span slot="title">{{tile.teachername}}</span>
                     <!--<span slot="subTitle">by <b>{{tile.author}}</b></span>-->
-                    <mu-button slot="action" @click="toTeacherinfo(index)" icon>
+                    <mu-button slot="action" @click="toTeacherinfo(tile.teacherid)" icon>
                       <mu-icon value="visibility" color="lightblue"></mu-icon>
                     </mu-button>
                   <!--</router-link>-->
@@ -97,26 +53,41 @@
         carouselImg3,
         carouselImg4,
         list: [{
-          title: 'awdawd',
-          image: 'https://images.pexels.com/photos/6803/light-rocks-pot-white.jpg',
-          auther: 'fjawdjwapdjo'
+          teacherid: 0,
+          teachername: 'awdawd',
+          teacherprofilephoto: 'https://images.pexels.com/photos/6803/light-rocks-pot-white.jpg'
         },{
-          title: 'awdawd',
-          image: 'https://images.pexels.com/photos/6803/light-rocks-pot-white.jpg',
-          auther: 'fjawdjwapdjo'
+          teacherid: 1,
+          teachername: 'awdawd',
+          teacherprofilephoto: 'https://images.pexels.com/photos/6803/light-rocks-pot-white.jpg'
         },{
-          title: 'awdawd',
-          image: 'https://images.pexels.com/photos/6803/light-rocks-pot-white.jpg',
-          auther: 'fjawdjwapdjo'
+          teacherid: 2,
+          teachername: 'awdawd',
+          teacherprofilephoto: 'https://images.pexels.com/photos/6803/light-rocks-pot-white.jpg'
         },{
-          title: 'awdawd',
-          image: 'https://images.pexels.com/photos/6803/light-rocks-pot-white.jpg',
-          auther: 'fjawdjwapdjo'
-        }
+          teacherid: 3,
+          teachername: 'awdawd',
+          teacherprofilephoto: 'https://images.pexels.com/photos/6803/light-rocks-pot-white.jpg'
+        },{
+            teacherid: 4,
+            teachername: 'awdawd',
+            teacherprofilephoto: 'https://images.pexels.com/photos/6803/light-rocks-pot-white.jpg'
+          }
         ]
       }
     },
+    created () {
+      this.getRecommended()
+    },
     methods: {
+      getRecommended: function(){
+        this.$http.get(this.$api.recommend).then(res => {
+          console.log(res.data);
+          if(res.data){
+            this.list = res.data;
+          }
+        })
+      },
       toTeacherinfo: function (id) {
         this.$router.push({path: 'teacher',query: {id: id}});
       }

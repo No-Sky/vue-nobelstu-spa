@@ -1,25 +1,58 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router/router'
+import Resource from 'vue-resource'
+
+//md5
+import md5 from 'js-md5'
+
+//vuex
+import store from './store/index.js'
+
+//api列表
+import Api from './api/api.js'
+
+//muse-ui框架
 import MuseUI from 'muse-ui'
+import Message from 'muse-ui-message'
+import Toast from 'muse-ui-toast'
 import 'muse-ui/dist/muse-ui.css'
-import { Search } from 'mint-ui';
-import { IndexList, IndexSection } from 'mint-ui';
-import {Cell} from 'mint-ui'
-import 'mint-ui/lib/style.css';
+
+//照片裁剪插件
 import clipper from './assets/clipper/clipper.js'
 
+
+Vue.use(Resource)
 Vue.use(MuseUI);
-Vue.component(Search.name, Search);
-Vue.component(IndexList.name, IndexList);
-Vue.component(IndexSection.name, IndexSection);
-Vue.component(Cell.name, Cell);
+Vue.use(Message);
+Vue.use(Toast);
 Vue.use(clipper);
+Vue.prototype.$api = Api;
+Vue.prototype.$md5 = md5;
 
 Vue.config.productionTip = false;
 
+router.beforeEach((to, from, next) => {
+    let session = localStorage.getItem('session')
+    if (to.meta.requireLogin) {
+        if (session) {
+            next();
+        } else {
+            next({
+                path: '/login',
+                query: {
+                    redirect: to.fullPath
+                }
+            })
+        }
+
+    } else {
+        next();
+    }
+});
 new Vue({
   el: '#app',
+  store,
   router,
   render: h => h(App)
 });
