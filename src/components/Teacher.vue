@@ -3,7 +3,7 @@
     <mu-container :style="avatarStyle">
       <mu-row justify-content="center">
         <mu-avatar :size="size">
-          <img src="../assets/images/hnsoftedu.jpg">
+          <img src="../assets/images/logoimg.png">
         </mu-avatar>
       </mu-row>
     </mu-container>

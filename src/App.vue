@@ -12,11 +12,11 @@
             <mu-icon value="input" color="primary"></mu-icon>&nbsp;&nbsp;
             请登录
           </mu-list-item>
-          <mu-list-item v-else button style="margin-top: 45px;" to="/login" @click="closeDrawer">
+          <mu-list-item v-else button style="margin-top: 45px;"  @click="closeDrawer">
             NobelEdu账号： {{user.stuemail}}
           </mu-list-item>
           <mu-divider></mu-divider>
-          <mu-list-item button to="name: 'userinfo'}" @click="closeDrawer">
+          <mu-list-item button to="/userinfo" @click="closeDrawer">
             <mu-icon value="person" color="primary"></mu-icon>&nbsp;&nbsp;
             账号与安全
           </mu-list-item>
@@ -90,8 +90,8 @@
 </template>
 
 <script>
-import headimg from './assets/images/hnsoftedu.jpg'
-import slidebg from './assets/images/sidebar-1.jpg'
+import headimg from './assets/images/logoimg.png'
+import slidebg from './assets/images/sidebar-2.jpg'
   export default {
     name: 'App',
     data () {
@@ -147,7 +147,6 @@ import slidebg from './assets/images/sidebar-1.jpg'
     created () {
       this.getUser();
       this.isLogin = JSON.stringify(this.user)=={}?false:true;
-      console.log(this.isLogin);
     },
     methods: {
       getUser: function(){
