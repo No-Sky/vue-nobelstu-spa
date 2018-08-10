@@ -13,7 +13,7 @@
         <div class="mui-input-row">
           <label>验证码：</label>
           <input id="verifycode" type="text" class="mui-input-clear " placeholder="请输入验证码">
-          <input  type="button" style="" class="mui-btn btn-code" value="获取" onclick="clickButton(this)"/>
+          <input  type="button" style="" class="mui-btn btn-code" value="获取" @click="clickButton($event)"/>
         </div>
         <div class="mui-input-row">
           <label>密码：</label>
@@ -31,7 +31,27 @@
   </div>
 </template>
 <script>
-  export default {}
+  export default {
+    methods: {
+      clickButton: function (ev) {
+        // checkStuEmail();
+        // console.log(checkemail);
+        //点击发送邮箱验证码
+
+          //从绑定目标触发
+          let btn = ev.currentTarget;
+          let time = 60;
+          btn.setAttribute("disabled", "disabled");//按钮倒计时
+          let setIn = setInterval(function () {
+            btn.setAttribute("value",--time+'s')
+          }, 1000); //等待时间
+          setTimeout(function () {
+            btn.setAttribute("disabled", false).val("重新获取"); //倒计时
+            clearInterval(setIn);
+          }, 60*1000);
+        }
+      }
+  }
 </script>
 <style scoped>
   .mui-card-content{

@@ -4,7 +4,7 @@
     <form id='login-form' class="mui-input-group">
       <div class="mui-input-row">
         <label>账号</label>
-        <input id='account' v-model="user.stuemail" type="text" name="stuemail" class="mui-input-clear mui-input" placeholder="请输入登录邮箱">
+        <input id='account'  v-model="user.stuemail" type="text" name="stuemail" class="mui-input-clear mui-input" placeholder="请输入登录邮箱">
       </div>
       <div class="mui-input-row">
         <label>密码</label>
@@ -26,27 +26,11 @@
   import {mapActions} from 'vuex'
   export default {
     data () {
-      let checkUserName = (rule, value, cb) => {
-        if (!value) {
-          return cb(new Error('账户不能为空!'))
-        } else {
-          cb(); // 将判断传递给后面
-        }
-      }
-      let checkPassword = (rule, value, cb) => {
-        if (!value) {
-          return cb(new Error('密码不能为空!'))
-        } else {
-          cb();
-        }
-      }
       return {
         user: {
           stuemail: '',
           stupwd: ''
-        },
-        checkUserName,
-        checkPassword
+        }
       }
     },
     methods: {
@@ -57,14 +41,13 @@
           stupwd: this.$md5.hex(this.user.stupwd)
         }
        this.$http.post(this.$api.login,loginStudent).then(res => {
+         console.log(res.data);
          if (res.data.code==0) {
            this.userLogin(res.data.data);
            //消息提示
-           this.$toast.success(res.data.message)
-           // let user = localStorage.getItem('user');
-           // console.log(JSON.parse(user));
+           this.$toast.success(res.data.message);
            // 登录成功 跳转至首页
-           this.$router.push('/index')
+           this.$router.push('/')
          }else{
            //消息提示
            this.$toast.error(res.data.message);

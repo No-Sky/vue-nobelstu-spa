@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="mui-content">
-      <div id='list' class="mui-indexed-list">
+      <div id='list' style="height: 100%" class="mui-indexed-list">
         <div class="mui-indexed-list-search mui-input-row mui-search">
           <input type="search" class="mui-input-clear mui-indexed-list-search-input" placeholder="搜索老师和课程">
         </div>
@@ -11,55 +11,62 @@
         <div class="mui-indexed-list-inner">
           <div class="mui-indexed-list-empty-alert">没有数据</div>
           <ul class="mui-table-view">
-            <li data-group="teacher" class="mui-table-view-divider mui-indexed-list-group">教师</li>
-              <li @click="toTeacherinfo(0)" data-value="马某" data-tags="m" class="mui-table-view-cell mui-indexed-list-item">马某</li>
+            <!--<li data-group="teacher" class="mui-table-view-divider mui-indexed-list-group">教师</li>
+              <li  @click="toTeacherinfo(1)" :data-value="马某" data-tags="" class="mui-table-view-cell mui-indexed-list-item">马某</li>
             <li data-group="course" class="mui-table-view-divider mui-indexed-list-group">课程</li>
-              <li @click="toTeacherinfo(0)" data-value="课1" data-tags="k" class="mui-table-view-cell mui-indexed-list-item">课1<span class="mui-pull-right" style="font-size: 12px;">授课教师：马某</span></li>
+              <li   @click="toTeacherinfo(1)" data-value="java" data-tags="" class="mui-table-view-cell mui-indexed-list-item">Java<span class="mui-pull-right" style="font-size: 12px;">授课教师：马某</span></li>-->
+            <li data-group="teacher" class="mui-table-view-divider mui-indexed-list-group">教师</li>
+              <li v-for="teacher in teachers" :key="teacher.teacherid" @click="toTeacherinfo(teacher.teacherid)" :data-value="teacher.teachername"
+                  data-tags="" class="mui-table-view-cell mui-indexed-list-item">
+                {{teacher.teachername}}
+              </li>
+            <li data-group="course" class="mui-table-view-divider mui-indexed-list-group">课程</li>
+              <li v-for="course in courses"  @click="toTeacherinfo(course.teacher.teacherid)" :data-value="course.coursename"
+                  data-tags="" class="mui-table-view-cell mui-indexed-list-item">
+                 {{course.coursename}}
+                 <span class="mui-pull-right" style="font-size: 12px;">授课教师：{{course.teacher.teachername}}</span>
+              </li>
           </ul>
         </div>
       </div>
     </div>
-    <!--搜索框-->
-    <!--<mt-search style="width:100%;height: 45px;" v-model="value" :result.sync="result" cancel-text="取消" placeholder="搜索"></mt-search>-->
-    <!--<mt-search v-model="value" autofocus cancel-text="取消" placeholder="搜索">-->
-      <!--<mt-cell-->
-        <!--v-for="item in result"-->
-        <!--:title="item.title"-->
-        <!--:value="item.value">-->
-      <!--</mt-cell>-->
-    <!--</mt-search>-->
-    <!--indexList-->
-    <!--<mt-index-list>
-      <mt-index-section index="A">
-        <mt-cell title="Aaron">Aaron</mt-cell>
-        <mt-cell title="Alden">Alden</mt-cell>
-        <mt-cell title="Austin">Austin</mt-cell>
-      </mt-index-section>
-      <mt-index-section index="B">
-        <mt-cell title="Baldwin">Baldwin</mt-cell>
-        <mt-cell title="Braden">Braden</mt-cell>
-      </mt-index-section>
-      <mt-index-section index="Z">
-        <mt-cell title="Zack">Zack</mt-cell>
-        <mt-cell title="Zane">Zane</mt-cell>
-      </mt-index-section>
-    </mt-index-list>-->
   </div>
 </template>
 <script>
+  import bus from '../common/eventBus.js'
   export default {
     name: 'Search',
     data () {
       return {
+        teachers: [],
+        courses: []
       }
     },
+    created () {
+      this.getData();
+    },
     methods: {
+      getData: function(){
+        this.$http.get(this.$api.search).then( res =>{
+          console.log(res.data);
+          if(res.data.code==0){
+            this.teachers = res.data.data.teachers;
+            this.courses = res.data.data.courses;
+          }else{
+            this.$toast.error(res.data.message)
+          }
+        })
+      },
       toTeacherinfo (id) {
+        setTimeout(()=>{
+          bus.$emit("teacherInfoEvent",id);
+        },200);
         this.$router.push({path: 'teacher',query: {id: id}});
       }
     },
     mounted () {
       mui.ready(function () {
+        mui.init();
         let header = document.getElementById('header');
         let list = document.getElementById('list');
         //calc hieght
@@ -71,19 +78,17 @@
   }
 </script>
 <style>
-
+  html,
+  body {
+    height: 100%;
+    overflow: hidden;
+  }
+  .mui-bar {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
 ul{
   height: 100%;
-}/*
-.mint-search-list{
-  top: 90px;
-  bottom: 60px;
-  color: black;
-  z-index: 223;
-  background-color: white;
 }
-.mint-search-list-warp{
-  margin-top: -45px;
-}*/
 
 </style>

@@ -22,14 +22,12 @@
         <mu-paper>
           <mu-grid-list>
               <mu-grid-tile v-for="(tile, index) in list" :key="index">
-                  <!--<router-link :to="'/teacher?id='+index">-->
                     <img :src="tile.teacherprofilephoto" >
                     <span slot="title">{{tile.teachername}}</span>
                     <!--<span slot="subTitle">by <b>{{tile.author}}</b></span>-->
                     <mu-button slot="action" @click="toTeacherinfo(tile.teacherid)" icon>
                       <mu-icon value="visibility" color="lightblue"></mu-icon>
                     </mu-button>
-                  <!--</router-link>-->
               </mu-grid-tile>
           </mu-grid-list>
         </mu-paper>
@@ -39,6 +37,7 @@
 </template>
 
 <script>
+  import bus from '../common/eventBus.js'
   import carouselImg1 from '../assets/images/1.jpg';
   import carouselImg2 from '../assets/images/2.jpg';
   import carouselImg3 from '../assets/images/3.jpg';
@@ -88,11 +87,17 @@
           }
         })
       },
-      toTeacherinfo: function (id) {
-        this.$router.push({path: 'teacher',query: {id: id}});
+      toTeacherinfo: function (teacherid) {
+        setTimeout(()=>{
+          bus.$emit("teacherInfoEvent",teacherid);
+        },200);
+        this.$router.push({path: 'teacher',query: {id: teacherid}});
       }
     },
     mounted(){
+
+    },
+    beforeDestroy () {
 
     }
   }

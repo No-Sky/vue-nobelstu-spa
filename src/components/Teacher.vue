@@ -3,25 +3,25 @@
     <mu-container :style="avatarStyle">
       <mu-row justify-content="center">
         <mu-avatar :size="size">
-          <img src="../assets/images/logoimg.png">
+          <img :src="(teacher.teacherprofilephoto==''||teacher.teacherprofilephoto==null)?logoImg:teacher.teacherprofilephoto">
         </mu-avatar>
       </mu-row>
     </mu-container>
     <mu-paper :z-depth="1">
       <mu-list toggle-nested>
         <mu-list-item >
-          hello everyone
+          {{teacher.teacherinfo}}
         </mu-list-item>
         <mu-divider></mu-divider>
         <div style="margin-left: 5%;font-size: 16px; ">
           <div>
-            <mu-icon value="person" color="blue"></mu-icon>&nbsp;&nbsp;<span>某某某</span>
+            <mu-icon value="person" color="blue"></mu-icon>&nbsp;&nbsp;<span>{{teacher.teachername}}</span>
           </div>
-          <div>
-            <mu-icon value="call" color="blue"></mu-icon>&nbsp;&nbsp;<span>1234567898</span>
+          <div v-show="teacher.teachertel!=null">
+            <mu-icon value="call" color="blue"></mu-icon>&nbsp;&nbsp;<span>{{teacher.teachertel}}</span>
           </div>
-          <div>
-            <mu-icon value="mail" color="blue"></mu-icon>&nbsp;&nbsp;<span>123@teacher.com</span>
+          <div v-show="teacher.teacheremail!=null">
+            <mu-icon value="mail" color="blue"></mu-icon>&nbsp;&nbsp;<span>{{teacher.teacheremail}}</span>
           </div>
         </div>
         <mu-divider></mu-divider>
@@ -33,14 +33,11 @@
           <mu-list-item-action>
             <mu-icon class="toggle-icon" size="24" value="keyboard_arrow_down"></mu-icon>
           </mu-list-item-action>
-          <mu-list-item button :ripple="false" slot="nested">
-            <mu-list-item-title>List Item 1</mu-list-item-title>
-          </mu-list-item>
-          <mu-list-item button :ripple="false" slot="nested">
-            <mu-list-item-title>List Item 2</mu-list-item-title>
-          </mu-list-item>
-          <mu-list-item button :ripple="false" slot="nested">
-            <mu-list-item-title>List Item 3</mu-list-item-title>
+          <mu-list-item v-for="course in teacher.courses" :key="course.courseid"  :ripple="false" slot="nested">
+            <mu-list-item-content>
+              <mu-list-item-title>{{course.coursename}}</mu-list-item-title>
+              <mu-list-item-sub-title>{{course.courseinfo}}</mu-list-item-sub-title>
+            </mu-list-item-content>
           </mu-list-item>
         </mu-list-item>
         <mu-divider></mu-divider>
@@ -52,11 +49,30 @@
   </div>
 </template>
 <script>
+  import bus from '../common/eventBus.js'
   import bg from '../assets/images/4.jpg'
+  import logoImg from '../assets/images/logoimg.png'
+
   export default {
-    name: 'User',
+    name: 'Teahcer',
+    inject: ['reload'],
     data () {
       return {
+        teacher:{
+          recommended: false,
+          roleid: 0,
+          teachercode: 0,
+          teacheremail: '',
+          teacherid: 0,
+          teacherinfo: '',
+          teachername: '',
+          teacherprofilephoto: '',
+          teacherpwd: '',
+          teacherstatus: '',
+          teachertel: '',
+          courses: []
+         },
+        logoImg,
         toggle: '',
         size: 165,
         avatarStyle: {
@@ -66,8 +82,25 @@
       }
     },
     created: function () {
-      let obj = this.$route.query;
-      console.log(obj);
+      bus.$on("teacherInfoEvent",id => {
+        this.getTeacher(id);
+      })
+    },
+    methods: {
+      getTeacher: function(teacherid){
+        this.$http.get(this.$api.teacher+teacherid).then(res =>{
+          // console.log(res.data);
+          if (res.data.code==0) {
+            this.teacher = res.data.data;
+          }
+        })
+      }
+    },
+    mounted () {
+
+    },
+    beforeDestroy () {
+      bus.$off('teacherInfoEvent');
     }
   }
 </script>

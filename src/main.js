@@ -33,7 +33,7 @@ Vue.prototype.$md5 = md5;
 Vue.config.productionTip = false;
 
 router.beforeEach((to, from, next) => {
-    let session = localStorage.getItem('session')
+    let session = localStorage.getItem('user')
     if (to.meta.requireLogin) {
         if (session) {
             next();

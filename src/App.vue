@@ -13,7 +13,7 @@
             请登录
           </mu-list-item>
           <mu-list-item v-else button style="margin-top: 45px;"  @click="closeDrawer">
-            NobelEdu账号： {{user.stuemail}}
+            NobelEdu账号：<br/>&nbsp;&nbsp;&nbsp;&nbsp;{{user.stuemail}}
           </mu-list-item>
           <mu-divider></mu-divider>
           <mu-list-item button to="/userinfo" @click="closeDrawer">
@@ -26,11 +26,11 @@
             联系我们
           </mu-list-item>
           <mu-divider></mu-divider>
-          <mu-list-item v-if="!isLogin" button @click="closeDrawer">
+          <mu-list-item v-if="!isLogin" button @click="closeDrawer" to="/reg">
             <mu-icon value="assignment_ind" color="primary"></mu-icon>&nbsp;&nbsp;
             注册
           </mu-list-item>
-          <mu-list-item v-else button @click="closeDrawer">
+          <mu-list-item v-else button @click="logout">
             <mu-icon value="power_settings_new" color="primary"></mu-icon>&nbsp;&nbsp;
             退出登录
           </mu-list-item>
@@ -66,7 +66,7 @@
     </div>
 
     <keep-alive>
-      <router-view style="margin-top: 46px"></router-view>
+      <router-view style="margin-top: 46px" v-if="isRouterAlive"></router-view>
     </keep-alive>
 
 
@@ -92,24 +92,20 @@
 <script>
 import headimg from './assets/images/logoimg.png'
 import slidebg from './assets/images/sidebar-2.jpg'
+import {mapActions} from 'vuex'
+
   export default {
     name: 'App',
+    provide (){
+      return {
+        reload:this.reload
+      }
+    },
     data () {
       return {
+        isRouterAlive:true,
         isLogin: false,
-        user: {
-          roleid: '',
-          stuid: '',
-          stuname: '',
-          stuemail: '',
-          stupwd: "",
-          stuemailcheck: '',
-          stuprofilephoto: "",
-          stuage: 0,
-          stusex: "",
-          stuaddress: '',
-          stutel: ""
-        },
+        user: {},
         headimg,
         slideStyle: {
           padding: '10px 0',
@@ -146,20 +142,35 @@ import slidebg from './assets/images/sidebar-2.jpg'
     },*/
     created () {
       this.getUser();
-      this.isLogin = JSON.stringify(this.user)=={}?false:true;
+      // this.isLogin = JSON.stringify(this.user)=={}?false:true;
     },
     methods: {
+      ...mapActions(['userLoginOut']),
       getUser: function(){
         let user = localStorage.getItem('user');
-        if(user)
+        if(user){
           this.user = JSON.parse(user);
-        console.log(this.user);
+          this.isLogin = true;
+        }
+      },
+      logout: function(){
+        this.userLoginOut();
+        this.user = {};
+        this.isLogin = false;
+        this.closeDrawer();
+        this.$router.push("/");
       },
       goBack: function () {
         this.$router.go(-1);
       },
       closeDrawer: function () {
         this.open = false;
+      },
+      reload (){
+        this.isRouterAlive = false
+        this.$nextTick(function(){
+          this.isRouterAlive = true
+        })
       }
     },
     mounted(){

@@ -15,7 +15,7 @@ module.exports = {
         target: 'http://localhost:8080/nobelstu',
         changeOrigin: true,
         pathRewrite: {
-          '^/api': ''
+          '^/api': '/api'
         }
       }
     },
