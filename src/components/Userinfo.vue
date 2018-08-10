@@ -31,7 +31,7 @@
         <mu-list-item>
           <mu-list-item-content>
             <mu-list-item-title>性别</mu-list-item-title>
-            {{user.sex}}
+            {{user.stusex}}
           </mu-list-item-content>
         </mu-list-item>
         <mu-divider></mu-divider>
@@ -71,26 +71,26 @@
         <input name="stuid" type="hidden" v-model="user.id"/>
           <mu-list textline="two-line">
             <mu-list-item>
-              <mu-form-item prop="input" label="姓名：">
+              <mu-form-item :style="formStyle" prop="input" label="姓名：">
                 <mu-text-field v-model="user.stuname"></mu-text-field>
               </mu-form-item>
             </mu-list-item>
             <mu-divider></mu-divider>
-            <mu-list-item>
-                <mu-form-item prop="input" label="账号：">
+            <mu-list-item >
+                <mu-form-item :style="formStyle" prop="input" label="账号：">
                   <mu-text-field v-model="user.stuemail" disabled></mu-text-field>
                 </mu-form-item>
             </mu-list-item>
             <mu-divider></mu-divider>
             <mu-list-item>
-              <mu-form-item prop="radio" label="性别：">
+              <mu-form-item :style="formStyle" prop="radio" label="性别：">
                 <mu-radio v-model="user.stusex" value="男" label="男"></mu-radio>
                 <mu-radio v-model="user.stusex" value="女" label="女"></mu-radio>
               </mu-form-item>
             </mu-list-item>
             <mu-divider></mu-divider>
             <mu-list-item>
-              <mu-form-item prop="select" label="年龄：">
+              <mu-form-item :style="formStyle" prop="select" label="年龄：">
                 <mu-select v-model="user.stuage">
                   <mu-option v-for="(option,index) in options" :key="index" :label="option+''" :value="option"></mu-option>
                 </mu-select>
@@ -98,13 +98,13 @@
             </mu-list-item>
             <mu-divider></mu-divider>
             <mu-list-item>
-              <mu-form-item prop="input" label="家庭地址：">
+              <mu-form-item :style="formStyle" prop="input" label="家庭地址：">
                 <mu-text-field v-model="user.stuaddress"></mu-text-field>
               </mu-form-item>
             </mu-list-item>
             <mu-divider></mu-divider>
             <mu-list-item>
-              <mu-form-item prop="input" label="联系电话：">
+              <mu-form-item :style="formStyle" prop="input" label="联系电话：">
                 <mu-text-field v-model="user.stutel"></mu-text-field>
               </mu-form-item>
             </mu-list-item>
@@ -126,7 +126,11 @@
       return {
         loadImg: '../assets/clipper/loading.gif',
         user: JSON.parse(localStorage.getItem('user')),
-        options: []
+        options: [],
+        formStyle: {
+          paddingTop: '22px',
+          paddingBottom: '5px'
+        }
       }
     },
     created (){
@@ -165,8 +169,8 @@
     filter:alpha(opacity=0);
     cursor:pointer;
   }
-  .mu-list-two-line .mu-item{
-    height: 60px;
+  mui-item{
+    height: 55px;
   }
   .mui-modal{
     top: 48px;

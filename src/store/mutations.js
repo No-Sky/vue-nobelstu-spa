@@ -16,7 +16,7 @@ export const mutations = {
     // 因此这里采用了localStorage
     // 一定要明白vuex这类库的本质作用，它极大的增加了前端逻辑处理的可能性
     localStorage.setItem('user', JSON.stringify(data));
-    localStorage.setItem('session', JSON.stringify(data))
+    // localStorage.setItem('session', JSON.stringify(data))
   },
   [types.DELSESSION](state) {
     localStorage.removeItem('session');

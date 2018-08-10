@@ -66,7 +66,7 @@
     </div>
 
     <keep-alive>
-      <router-view style="margin-top: 46px" v-if="isRouterAlive"></router-view>
+      <router-view style="margin-top: 46px" v-if="isRouterAlive" @loginChange="getUser"></router-view>
     </keep-alive>
 
 
@@ -165,13 +165,13 @@ import {mapActions} from 'vuex'
       },
       closeDrawer: function () {
         this.open = false;
-      },
-      reload (){
+      }
+      /*reload (){
         this.isRouterAlive = false
         this.$nextTick(function(){
           this.isRouterAlive = true
         })
-      }
+      }*/
     },
     mounted(){
 

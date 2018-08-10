@@ -47,6 +47,7 @@
            //消息提示
            this.$toast.success(res.data.message);
            // 登录成功 跳转至首页
+           this.$emit('loginChange', true);
            this.$router.push('/')
          }else{
            //消息提示
