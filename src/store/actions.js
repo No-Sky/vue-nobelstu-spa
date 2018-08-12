@@ -14,7 +14,7 @@ const actions = {
             }, data) {
     commit(types.LOGIN, data);
   },
-  delUserSession({
+  delSession({
                    commit
                  }, data) {
     commit(types.DELSESSION, data);

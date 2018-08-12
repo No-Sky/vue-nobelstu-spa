@@ -8,6 +8,7 @@ Vue.use(Vuex);
 const state = {
   isLogin: false,
   user: {}
+  // token: ''
 }
 
 export default new Vuex.Store({

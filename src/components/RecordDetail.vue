@@ -4,76 +4,108 @@
       <table width="100%" class="table">
         <tr>
           <th width="35%">订单编号</th>
-          <td>123456</td>
+          <td>{{order.orderid}}</td>
         </tr>
         <tr>
           <th>教师名称</th>
-          <td>马某</td>
+          <td>{{order.teacher.teachername}}</td>
         </tr>
         <tr>
           <th>课程名称</th>
-          <td>C语言</td>
+          <td>{{order.course.coursename}}</td>
         </tr>
         <tr>
           <th>开始时间</th>
-          <td>2018-08-07 13:00</td>
+          <td>{{order.starttime | date}}</td>
         </tr>
 
         <tr>
           <th>课程时长</th>
-          <td>2小时</td>
+          <td>{{order.duration}}</td>
         </tr>
         <tr>
           <th>订单状态</th>
           <td>
-            已同意
+            {{order.orderstatus}}
           </td>
         </tr>
         <tr>
           <th>课程状态</th>
           <td>
-            未上课
+            {{order.coursestatus}}
           </td>
         </tr>
           <tr>
             <th>留言</th>
-            <td><div style="width:200px;word-wrap: break-word;">和交话费按实际发我的口岸我怕gjiseofjsoijfnsioefhseiofhnsiofhnsioefjnseiojfseio</div></td>
+            <td><div style="width:200px;word-wrap: break-word;">{{order.message}}</div></td>
           </tr>
           <tr>
             <th>评分</th>
             <td>
               <div id="star" class="icons mui-inline" style="margin-left: 6px;">
-                <i data-index="1" class="mui-icon mui-icon-star"></i>
-                <i data-index="2" class="mui-icon mui-icon-star"></i>
-                <i data-index="3" class="mui-icon mui-icon-star"></i>
-                <i data-index="4" class="mui-icon mui-icon-star"></i>
-                <i data-index="5" class="mui-icon mui-icon-star"></i>
+                <i :data-index="i" v-for="i in order.score" :key="i" :class="filledStar"></i>
+                <i :data-index="i" v-for="i in 5-order.score" :key="i" :class="star"></i>
               </div>
             </td>
           </tr>
       </table>
       <!--留言按钮 评价打分按钮-->
-        <div class="btn-box">
-          <mu-button full-width color="primary" to="/grade">留言评分</mu-button>
-          <mu-button full-width color="primary" >确认上课</mu-button>
+        <div  class="btn-box">
+          <mu-button v-if="order.orderstatus==2 && order.coursestatus && order.message==null && (order.score==null || order.score==0)" full-width color="primary" to="/grade">留言评分</mu-button>
+          <mu-button v-if="order.orderstatus==2 && order.coursestatus==false" full-width color="primary" >确认上课</mu-button>
         </div>
     </div>
   </div>
 </template>
 <script>
+  import bus from '../common/eventBus.js'
   export default {
     data () {
       return {
-        score: 3
+        order: {
+          score: 0,
+          course: {
+            coursename: ''
+          },
+          teacher: {
+            teachername: ''
+          }
+        },
+        star: 'mui-icon mui-icon-star',
+        filledStar: 'mui-icon mui-icon-star mui-icon-star-filled'
       }
     },
+    created: function(){
+      let orderid = this.$route.query.id;
+      this.getRecordDetail(orderid);
+      /*bus.$on('recordDetailEvent', val => {
+        this.getRecordDetail(val);
+      });*/
+    },
+    methods: {
+       getRecordDetail: function (orderid) {
+        this.$http.get(this.$api.recorddetail+orderid).then( res => {
+          console.log(res.data);
+          if(res.data.code==0){
+            this.order = res.data.data;
+          }else{
+            this.$alert("加载错误");
+          }
+        })
+      },
+      /*showStar: function (score) {
+        console.log("score:"+score)
+        let parent = document.getElementById('star');
+        let children = parent.childNodes;
+        for(let i=0;i<score;i++){
+          children[i].classList.add(this.filledStar);
+        }
+      }*/
+    },
     mounted () {
-      let parent = document.getElementById("star");
-      let children = parent.children;
-      let _score = this.score;
-      for(let i=0;i<_score;i++){
-        children[i].classList.add('mui-icon-star-filled');
-      }
+    },
+    beforeDestroy () {
+      bus.$off('recordDetailEvent');
     }
   }
 </script>

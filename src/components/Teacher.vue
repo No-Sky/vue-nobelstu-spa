@@ -42,7 +42,7 @@
         </mu-list-item>
         <mu-divider></mu-divider>
         <mu-list-item button :ripple="false">
-            <mu-button style="margin: 0 auto;" color="primary" to="/freetime">预定课程</mu-button>
+            <mu-button style="margin: 0 auto;" color="primary" @click="toFreetime">预定课程</mu-button>
         </mu-list-item>
       </mu-list>
     </mu-paper>
@@ -94,6 +94,12 @@
             this.teacher = res.data.data;
           }
         })
+      },
+      toFreetime: function(){
+        setTimeout(()=>{
+          bus.$emit("freetimeEvent",this.teacher.teacherid);
+        },200);
+        this.$router.push({path: 'freetime',query: {id: this.teacher.teacherid}});
       }
     },
     mounted () {

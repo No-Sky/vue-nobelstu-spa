@@ -11,13 +11,13 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/api': {
+      /*'/api': {
         target: 'http://localhost:8080/nobelstu',
         changeOrigin: true,
         pathRewrite: {
           '^/api': '/api'
         }
-      }
+      }*/
     },
 
     // Various Dev Server settings

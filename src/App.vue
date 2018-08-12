@@ -21,6 +21,11 @@
             账号与安全
           </mu-list-item>
           <mu-divider></mu-divider>
+          <mu-list-item button to="/record" @click="closeDrawer">
+            <mu-icon value="dashboard" color="primary"></mu-icon>&nbsp;&nbsp;
+            约课记录
+          </mu-list-item>
+          <mu-divider></mu-divider>
           <mu-list-item button to="/about" @click="closeDrawer">
             <mu-icon value="grade" color="primary"></mu-icon>&nbsp;&nbsp;
             联系我们
@@ -47,7 +52,7 @@
           <mu-icon value="menu"></mu-icon>
         </mu-button>
         <mu-button
-          v-show="!(this.$route.path=='/index'||this.$route.path=='/record'||this.$route.path=='/user'||this.$route.path=='/')"
+          v-show="!(this.$route.path=='/index'||this.$route.path=='/')"
           @click="goBack" icon slot="left">
           <mu-icon value="arrow_back"></mu-icon>
         </mu-button>
@@ -118,43 +123,60 @@ import {mapActions} from 'vuex'
         shift: 'recommend'
       }
     },
-    /*beforeCreate(){
+    beforeCreate(){
       // 当主页刷新时，如果服务端设置的cookie（包含sessionId）
       // 的时效到了的话，便会提示未登录
-      this.$http.get(this.$api.session)
+      /*let user = JSON.parse(localStorage.getItem('user'));
+      if(!user){
+        this.$alert("登录已过时");
+      }else{
+        this.user = user;
+        this.isLogin = true;
+      }*/
+      let token = localStorage.getItem("token");
+      if(!token)
+        token = "";
+      this.$http.get(this.$api.session, {params:{token: token}})
         .then(res => {
           console.dir(res.data)
-          if (res.data.code==500) {
-            this.$toast.error(res.data.message);
+          if (res.data.code==-1) {
+            this.$alert(res.data.message);
+            this.isLogin = false;
             this.user = null;
             return false;
-          }else{
+          } else if (res.data.code==-2){
+            this.isLogin = false;
+            this.user = null;
+            return false;
+          } /*else{
             let user = localStorage.getItem('user');
             if (user) {
               this.user = JSON.parse(user);
             }
-          }
+          }*/
         })
         .catch(err => {
           this.$toast.error(err.message)
         })
 
-    },*/
+    },
     created () {
       this.getUser();
       // this.isLogin = JSON.stringify(this.user)=={}?false:true;
     },
     methods: {
       ...mapActions(['userLoginOut']),
+      ...mapActions(['delSession']),
       getUser: function(){
         let user = localStorage.getItem('user');
-        if(user){
+        if(user!=undefined){
           this.user = JSON.parse(user);
           this.isLogin = true;
         }
       },
       logout: function(){
         this.userLoginOut();
+        this.delSession();
         this.user = {};
         this.isLogin = false;
         this.closeDrawer();

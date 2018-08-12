@@ -48,7 +48,7 @@
            this.$toast.success(res.data.message);
            // 登录成功 跳转至首页
            this.$emit('loginChange', true);
-           this.$router.push('/')
+            this.$router.push('/')
          }else{
            //消息提示
            this.$toast.error(res.data.message);
@@ -89,7 +89,7 @@
   .mui-input-row label~input,
   .mui-input-row label~select,
   .mui-input-row label~textarea {
-    width: 78%;
+    width: 82%;
   }
 .mui-input-group label {
   background-color: lightyellow;
