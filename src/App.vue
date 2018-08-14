@@ -110,7 +110,9 @@ import {mapActions} from 'vuex'
       return {
         isRouterAlive:true,
         isLogin: false,
-        user: {},
+        user: {
+          stuprofilephoto: ''
+        },
         headimg,
         slideStyle: {
           padding: '10px 0',
@@ -123,56 +125,51 @@ import {mapActions} from 'vuex'
         shift: 'recommend'
       }
     },
-    beforeCreate(){
-      // 当主页刷新时，如果服务端设置的cookie（包含sessionId）
-      // 的时效到了的话，便会提示未登录
-      /*let user = JSON.parse(localStorage.getItem('user'));
-      if(!user){
-        this.$alert("登录已过时");
-      }else{
-        this.user = user;
-        this.isLogin = true;
-      }*/
-      let token = localStorage.getItem("token");
-      if(!token)
-        token = "";
-      this.$http.get(this.$api.session, {params:{token: token}})
-        .then(res => {
-          console.dir(res.data)
-          if (res.data.code==-1) {
-            this.$alert(res.data.message);
-            this.isLogin = false;
-            this.user = null;
-            return false;
-          } else if (res.data.code==-2){
-            this.isLogin = false;
-            this.user = null;
-            return false;
-          } /*else{
-            let user = localStorage.getItem('user');
-            if (user) {
-              this.user = JSON.parse(user);
-            }
-          }*/
-        })
-        .catch(err => {
-          this.$toast.error(err.message)
-        })
+    beforeCreate () {
 
     },
     created () {
-      this.getUser();
-      // this.isLogin = JSON.stringify(this.user)=={}?false:true;
+      this.refreshSession();
+      //this.getUser();
     },
     methods: {
+      ...mapActions(['refresh']),
       ...mapActions(['userLoginOut']),
       ...mapActions(['delSession']),
       getUser: function(){
         let user = localStorage.getItem('user');
-        if(user!=undefined){
+        if(user){
           this.user = JSON.parse(user);
           this.isLogin = true;
         }
+      },
+      refreshSession: function () {
+        // 当主页刷新时，如果服务端设置的cookie（包含sessionId）
+        // 的时效到了的话，便会提示未登录
+        let token = localStorage.getItem("token");
+        if(!token)
+          token = "";
+        this.$http.get(this.$api.session, {params:{token: token}})
+          .then(res => {
+            console.dir(res.data)
+            if (res.data.code==0){
+              this.refresh(res.data.data);
+              this.getUser();
+            } else if (res.data.code==-1) {
+              this.$alert(res.data.message);
+              this.logout();
+              this.isLogin = false;
+              this.user = null;
+              this.$router.push("/")
+              return false;
+            } else if (res.data.code==-2){
+              this.isLogin = false;
+              this.user = null;
+              return false;
+            }
+          }).catch(err => {
+          this.$toast.error(err.message)
+        })
       },
       logout: function(){
         this.userLoginOut();
@@ -187,13 +184,14 @@ import {mapActions} from 'vuex'
       },
       closeDrawer: function () {
         this.open = false;
-      }
-      /*reload (){
+      },
+      reload (){
         this.isRouterAlive = false
         this.$nextTick(function(){
+          this.refreshSession();
           this.isRouterAlive = true
         })
-      }*/
+      }
     },
     mounted(){
 

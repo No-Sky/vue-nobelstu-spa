@@ -2,7 +2,8 @@
   <div>
     <mu-paper :z-depth="1" >
       <mu-list textline="three-line">
-        <mu-list-item :ripple="false" v-for="order in orders" :key="order.orderid" >
+        <div v-for="order in orders" :key="order.orderid">
+        <mu-list-item :ripple="false"  >
           <mu-list-item-content>
             <mu-list-item-title>课程名： {{order.course.coursename}}</mu-list-item-title>
             <mu-list-item-sub-title style="color: rgba(0, 0, 0, .87)">开始时间：{{order.starttime | date}}</mu-list-item-sub-title>
@@ -11,11 +12,13 @@
             </mu-list-item-sub-title>
           </mu-list-item-content>
           <mu-list-item-action >
+            <mu-list-item-after-text>{{order.multiple?'多人':''}}</mu-list-item-after-text>
             <mu-button v-if="order.stu" small color="error">已被抢</mu-button>
             <mu-button v-else small color="primary" @click="toOrder(order.orderid)">去预定</mu-button>
           </mu-list-item-action>
         </mu-list-item>
         <mu-divider></mu-divider>
+        </div>
       </mu-list>
     </mu-paper>
   </div>
@@ -30,9 +33,11 @@
       }
     },
     created: function () {
-      bus.$on("freetimeEvent",id => {
+      let id = this.$route.query.id;
+      this.getFreetimes(id);
+     /* bus.$on("freetimeEvent",id => {
         this.getFreetimes(id);
-      })
+      })*/
     },
     methods: {
       getFreetimes: function (id) {

@@ -48,9 +48,11 @@
       }
     },
     created () {
-      bus.$on("orderEvent", id => {
+      let id = this.$route.query.id;
+      this.getOrder(id);
+      /*bus.$on("orderEvent", id => {
         this.getOrder(id);
-      })
+      })*/
     },
     methods: {
       getOrder: function (orderid) {
@@ -75,20 +77,19 @@
           })
       },
       confirmOrder: function () {
-        let form = {
-          "order.orderid": this.order.orderid,
-          "teacher.teacherid": this.order.teacher.teacherid,
-          "stu.stuid": this.order.stu.stuid,
-          "course.courseid": this.order.course!=null?this.order.course.courseid:this.coursesForm.courseid
-        }
-        console.log(form);
-        this.$http.post(this.$api.choiceOrder, form).then(res => {
+        let stu = JSON.parse(localStorage.getItem("user"));
+        let params = new URLSearchParams();
+        params.append("order.orderid",this.order.orderid);
+        params.append("teacher.teacherid", this.order.teacher.teacherid);
+        params.append("stu.stuid",stu.stuid);
+        params.append("course.courseid",this.order.course!=null?this.order.course.courseid:this.coursesForm.courseid);
+        this.$http.post(this.$api.choiceOrder, params).then(res => {
           console.log(res.data);
           if(res.data.isChoice){
             this.$toast.success("预约成功");
             this.$router.push("/")
           }else{
-            this.$toast.warning(res.data.errmag)
+            this.$toast.warning(res.data.errmsg)
           }
         })
       }

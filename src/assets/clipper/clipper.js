@@ -203,6 +203,11 @@ export default {
     Vue.prototype.postImg = function( imageData ) {
       //这边写图片的上传
       let self = this;
+      let params = new URLSearchParams();
+      params.append('imageData', imageData);
+      self.$http.post(self.$api.uploadavatar,params).then(res => {
+        console.log(res.data);
+      })
       self.destoried();
 
       window.setTimeout( function () {

@@ -13,6 +13,7 @@ const orderdetail  = 'http://localhost:8080/nobelstu/api/order/' //根据orderid
 const choiceOrder = 'http://localhost:8080/nobelstu/api/choiceOrder/' //确认选择此订单
 const records = 'http://localhost:8080/nobelstu/api/records'  //获取约课记录
 const recorddetail = 'http://localhost:8080/nobelstu/api/recorddetail/'  //获取订单详情 : /recorddetail/{oid}
+const uploadavatar = 'http://localhost:8080/nobelstu/api/uploadavatar'  //上传头像
 export default {
   login,
   reg,
@@ -24,5 +25,6 @@ export default {
   orderdetail,
   choiceOrder,
   records,
-  recorddetail
+  recorddetail,
+  uploadavatar
 }

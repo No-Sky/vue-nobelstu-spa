@@ -18,6 +18,11 @@ export const mutations = {
     localStorage.setItem('user', JSON.stringify(data.stu));
     localStorage.setItem('token', JSON.stringify(data.token))
   },
+  [types.REFRESH](state, data) {
+    //当刷新浏览器的时候从后端获取一个新的用户状态
+    state.user = data;
+    localStorage.setItem('user', JSON.stringify(data));
+  },
   [types.DELSESSION](state) {
     localStorage.removeItem('token');
   },

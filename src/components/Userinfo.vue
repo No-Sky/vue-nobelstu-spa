@@ -119,13 +119,14 @@
   </div>
 </template>
 <script>
-  // import loadImg from '../assets/clipper/loading.gif'
    import headImg from '../assets/images/logoimg.png'
   export default {
     data () {
       return {
         loadImg: '../assets/clipper/loading.gif',
-        user: JSON.parse(localStorage.getItem('user')),
+        user: {
+          stuprofilephoto: ''
+        },
         options: [],
         formStyle: {
           paddingTop: '22px',
@@ -134,6 +135,7 @@
       }
     },
     created (){
+      this.user = JSON.parse(localStorage.getItem('user'));
       for(let i=1; i<=70; i++){
         this.options.push(i);
       }

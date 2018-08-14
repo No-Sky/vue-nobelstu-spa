@@ -100,10 +100,18 @@ export default new Router({
     },{
       path: '/login',
       name: 'login',
+      meta: {
+        title: '用户登录',
+        keep_alive: true  // true 表示需要使用缓存
+      },
       component: Login
     },{
       path: '/reg',
       name: 'reg',
+      meta: {
+        title: '用户注册',
+        keep_alive: true  // true 表示需要使用缓存
+      },
       component: Reg
     },{
       path: '/forgetpwd',

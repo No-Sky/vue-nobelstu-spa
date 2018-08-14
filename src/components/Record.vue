@@ -20,7 +20,7 @@
                 </mu-list-item-sub-title>
               </mu-list-item-content>
               <mu-list-item-action >
-                <mu-list-item-after-text>{{notice.order.selectivetime | date}}</mu-list-item-after-text>
+                <mu-list-item-after-text >{{notice.selectivetime | date}}</mu-list-item-after-text>
                 <mu-button small color="warning">取消订单</mu-button>
               </mu-list-item-action>
             </mu-list-item>
@@ -88,7 +88,7 @@
         notice_Y: [],
         Notice_N: [],
         doEmpty: true,
-        yesEmpty: false,
+        yesEmpty: true,
         noEmpty: true
       };
     },
@@ -103,6 +103,9 @@
             this.notice_do = res.data.data.notice_do;
             this.notice_Y = res.data.data.notice_Y;
             this.notice_N = res.data.data.notice_N;
+            this.doEmpty = this.notice_do[0].noticeid!=null;
+            this.yesEmpty = this.notice_Y[0].noticeid!=null;
+            this.noEmpty = this.notice_N[0].noticeid!=null;
           }else{
             this.$alert("加载错误");
           }
