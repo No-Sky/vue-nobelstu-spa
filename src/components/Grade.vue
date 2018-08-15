@@ -5,7 +5,7 @@
       <br />
       <br />
       <div class="row mui-input-row">
-        <textarea rows="3" id="message" name="message" class="mui-input-clear question" placeholder="请根据你的上课情况和老师表现留言哦"></textarea>
+        <textarea rows="3" id="message" v-model="message" name="message" class="mui-input-clear question" placeholder="请根据你的上课情况和老师表现留言哦"></textarea>
       </div>
       <div class="">
         <p class="message-2">评分</p>
@@ -26,7 +26,7 @@
           </li>
         </ul>
         <div class="box-btn">
-          <mu-button full-width color="primary">提交</mu-button>
+          <mu-button full-width color="primary" @click="submitGrade">提交</mu-button>
         </div>
       </div>
     </div>
@@ -34,8 +34,34 @@
 </template>
 <script>
   export default {
+    data () {
+      return {
+        orderid: '',
+        message: '',
+        score: 0
+      }
+    },
+    created () {
+      this.orderid = this.$route.query.id;
+    },
+    methods: {
+      submitGrade: function () {
+        let params = new URLSearchParams();
+        params.append("orderid",this.orderid);
+        params.append("message",this.message);
+        params.append("score",this.score);
+        this.$http.post(this.$api.grade, params).then(res => {
+          console.log(res.data);
+          if (res.data.code==0){
+            this.$toast.success(res.data.message);
+            this.$router.push("/record");
+          }else{
+            this.$toast.warning(res.data.message);
+          }
+        })
+      }
+    },
     mounted () {
-      let score;
       mui('.icons').on('tap', 'i', function() {
         let index = parseInt(this.getAttribute("data-index"));
         let parent = this.parentNode;
@@ -53,7 +79,7 @@
         }
         //打了几颗星呢
         console.log(index);
-        score=index;
+        this.score=index;
       });
     }
   }

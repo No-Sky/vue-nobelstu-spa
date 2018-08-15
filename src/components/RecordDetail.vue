@@ -51,8 +51,8 @@
       </table>
       <!--留言按钮 评价打分按钮-->
         <div  class="btn-box">
-          <mu-button v-if="order.orderstatus==2 && order.coursestatus && order.message==null && (order.score==null || order.score==0)" full-width color="primary" to="/grade">留言评分</mu-button>
-          <mu-button v-if="order.orderstatus==2 && order.coursestatus==false" full-width color="primary" >确认上课</mu-button>
+          <mu-button v-if="order.orderstatus==2 && order.coursestatus && order.message==null && (order.score==null || order.score==0)" full-width color="primary" :to="{name: 'grade',query: {id: order.orderid}}">留言评分</mu-button>
+          <mu-button v-if="order.orderstatus==2 && order.coursestatus==false" full-width color="primary" @click="confirmClass(order.orderid)" >确认上课</mu-button>
         </div>
     </div>
   </div>
@@ -93,6 +93,17 @@
           }
         })
       },
+      confirmClass: function (orderid) {
+          this.$http.post(this.$api.confirmclass+orderid).then(res => {
+            console.log(res.data);
+            if (res.data.code==0){
+              this.$toast.success("确认成功");
+              this.$router.push({name: 'grade',query: {id: order.orderid}});
+            }else{
+              this.$toast.warning("确认失败");
+            }
+          })
+      }
       /*showStar: function (score) {
         console.log("score:"+score)
         let parent = document.getElementById('star');

@@ -68,7 +68,6 @@
     <div style="margin-top: 2px;">
       <mu-paper :z-depth="1">
       <mu-form :model="user" label-position="left" label-width="100">
-        <input name="stuid" type="hidden" v-model="user.id"/>
           <mu-list textline="two-line">
             <mu-list-item>
               <mu-form-item :style="formStyle" prop="input" label="姓名：">
@@ -110,7 +109,7 @@
             </mu-list-item>
           </mu-list>
           <mu-button @click="closeModal" style="margin-left: 10px;margin-top: 10px;" class="mui-pull-left" color="error">取消</mu-button>
-          <mu-button style="margin-right: 10px;margin-top: 10px;" class="mui-pull-right" color="primary">确认</mu-button>
+          <mu-button style="margin-right: 10px;margin-top: 10px;" class="mui-pull-right" color="primary" @click="submitForm">确认</mu-button>
         </mu-form>
       </mu-paper>
     </div>
@@ -120,6 +119,7 @@
 </template>
 <script>
    import headImg from '../assets/images/logoimg.png'
+   import '../common/validationForm.js'
   export default {
     data () {
       return {
@@ -141,6 +141,18 @@
       }
     },
     methods: {
+      submitForm: function () {
+        let params = this.user;
+        this.$http.post(this.$api.student, params).then(res => {
+          console.log(res.data);
+          if (res.data.code==0) {
+            this.$toast.success(res.data.message);
+            this.reload();
+          }else{
+            this.$toast.warning(res.data.message);
+          }
+        })
+      },
       change( event ) {
         let image = document.getElementById('img'); //预览对象
         this.clip(event , {

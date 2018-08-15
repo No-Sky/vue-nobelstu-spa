@@ -21,7 +21,7 @@
               </mu-list-item-content>
               <mu-list-item-action >
                 <mu-list-item-after-text >{{notice.selectivetime | date}}</mu-list-item-after-text>
-                <mu-button small color="warning">取消订单</mu-button>
+                <mu-button small color="warning" @click="deleteNotice(notice.noticeid)">取消订单</mu-button>
               </mu-list-item-action>
             </mu-list-item>
             <mu-divider></mu-divider>
@@ -116,6 +116,17 @@
           bus.$emit('recordDetailEvent',orderid);
         }, 200);
         this.$router.push({path: 'recorddetail',query: {id: orderid}});
+      },
+      deleteNotice: function (noticeid) {
+        this.$http.post(this.$api.delnotice+noticeid).then(res => {
+          console.log(res.data);
+          if (res.data.code==1){
+            this.$toast.success("取消成功");
+            this.reload();
+          } else {
+            this.$toast.warning("取消失败");
+          }
+        })
       }
     }
   }
