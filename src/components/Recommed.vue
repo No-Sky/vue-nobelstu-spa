@@ -78,8 +78,6 @@
           if(res.data){
             this.list = res.data;
           }
-        }).error(err => {
-          this.$toast.warning("推荐列表加载失败");
         })
       },
       getAds: function () {
@@ -88,8 +86,6 @@
           if(res.data){
             this.ads = res.data;
           }
-        }).error(err => {
-          this.$toast.warning("广告加载失败");
         })
       },
       toTeacherinfo: function (teacherid) {
