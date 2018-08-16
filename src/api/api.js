@@ -4,9 +4,9 @@
  * @type {string}
  */
 const rootUri = 'http://localhost:8080'  //发布的IP地址或者域名加端口号
-const login = rotUri+'/nobelstu/api/login'  //登录 post
-const reg = rotUri+'nobelstu/api/signup'  //注册 post
-const sendverify = rotUri+'nobelstu/api/verify'  //点击发送验证码 post
+const login = rootUri+'/nobelstu/api/login'  //登录 post
+const reg = rootUri+'nobelstu/api/signup'  //注册 post
+const sendverify = rootUri+'nobelstu/api/verify'  //点击发送验证码 post
 const recommend = rootUri+'/nobelstu/api/recommend'  //获取推荐教师 get
 const session = rootUri+'/nobelstu/api/session'  //判断session是否过时 get
 const teacher = rootUri+'/nobelstu/api/teacher/' // api/teacher/{id} : 根据教师ID获取教师的信息和全部课程 get
