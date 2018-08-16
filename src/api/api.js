@@ -3,7 +3,7 @@
  * @type {string}
  * @type {string}
  */
-const rootUri = 'http://localhost:8080'  //发布的IP地址或者域名加端口号
+const rootUri = 'http://142.93.207.161:8888'  //发布的IP地址或者域名加端口号
 const login = rootUri+'/nobelstu/api/login'  //登录 post
 const reg = rootUri+'nobelstu/api/signup'  //注册 post
 const sendverify = rootUri+'nobelstu/api/verify'  //点击发送验证码 post
