@@ -69,7 +69,8 @@
       }
     },
     created () {
-      this.getRecommended()
+      this.getRecommended();
+      this.getAds();
     },
     methods: {
       getRecommended: function(){
@@ -83,7 +84,7 @@
       getAds: function () {
         this.$http.get(this.$api.ads).then(res => {
           console.log(res.data);
-          if(res.data){
+          if(!res.data){
             this.ads = res.data;
           }
         })

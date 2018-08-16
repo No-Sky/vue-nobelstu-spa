@@ -10,7 +10,7 @@
         <mu-paper :z-depth="1">
           <mu-alert v-if="doEmpty">您还没有预约课程</mu-alert>
           <mu-list v-else textline="two-line">
-            <div v-for="notice in notice_do" :key="notice.noticeid">
+            <div v-for="notice in notice_do" :key="notice.nid">
             <mu-list-item  :ripple="true" button>
               <mu-list-item-content>
                 <mu-list-item-title>课程名： {{notice.course.coursename}}</mu-list-item-title>
@@ -21,7 +21,7 @@
               </mu-list-item-content>
               <mu-list-item-action >
                 <mu-list-item-after-text >{{notice.selectivetime | date}}</mu-list-item-after-text>
-                <mu-button small color="warning" @click="deleteNotice(notice.noticeid)">取消订单</mu-button>
+                <mu-button small color="warning" @click="deleteNotice(notice.nid)">取消订单</mu-button>
               </mu-list-item-action>
             </mu-list-item>
             <mu-divider></mu-divider>
@@ -33,7 +33,7 @@
         <mu-paper :z-depth="1" >
           <mu-alert v-if="yesEmpty">您还没有已同意课程</mu-alert>
           <mu-list v-else textline="two-line">
-            <div v-for="notice in notice_Y" :key="notice.noticeid">
+            <div v-for="notice in notice_Y" :key="notice.id">
             <mu-list-item  :ripple="true" button>
               <mu-list-item-content>
                 <mu-list-item-title>课程名： {{notice.order.course.coursename}}</mu-list-item-title>
@@ -44,7 +44,7 @@
               </mu-list-item-content>
               <mu-list-item-action >
                 <mu-list-item-after-text>2 min</mu-list-item-after-text>
-                <mu-button small color="primary" @click="toRecordDetail(notice.order.orderid)">详情</mu-button>
+                <mu-button small color="primary" @click="toRecordDetail(notice.nid)">详情</mu-button>
               </mu-list-item-action>
             </mu-list-item>
             <mu-divider></mu-divider>
@@ -56,7 +56,7 @@
         <mu-paper :z-depth="1">
           <mu-alert v-if="noEmpty">您还没有已拒绝课程</mu-alert>
           <mu-list v-else textline="two-line">
-            <div v-for="notice in notice_N" :key="notice.noticeid">
+            <div v-for="notice in notice_N" :key="notice.nid">
             <mu-list-item  :ripple="true" button>
               <mu-list-item-content>
                 <mu-list-item-title>课程名： {{notice.course.coursename}}</mu-list-item-title>
@@ -84,9 +84,9 @@
     data () {
       return {
         active: 0,
-        notice_do: [],
-        notice_Y: [],
-        Notice_N: [],
+        notice_do: [{"nid":0}],
+        notice_Y: [{"nid":0}],
+        Notice_N: [{"nid":0}],
         doEmpty: true,
         yesEmpty: true,
         noEmpty: true
@@ -103,19 +103,19 @@
             this.notice_do = res.data.data.notice_do;
             this.notice_Y = res.data.data.notice_Y;
             this.notice_N = res.data.data.notice_N;
-            this.doEmpty = this.notice_do[0].noticeid!=null;
-            this.yesEmpty = this.notice_Y[0].noticeid!=null;
-            this.noEmpty = this.notice_N[0].noticeid!=null;
+            this.doEmpty = this.notice_do.length==0;
+            this.yesEmpty = this.notice_Y.length==0;
+            this.noEmpty = this.notice_N.length==0;
           }else{
             this.$alert("加载错误");
           }
         })
       },
-      toRecordDetail: function (orderid) {
+      toRecordDetail: function (nid) {
         setTimeout(()=> {
-          bus.$emit('recordDetailEvent',orderid);
+          bus.$emit('recordDetailEvent',nid);
         }, 200);
-        this.$router.push({path: 'recorddetail',query: {id: orderid}});
+        this.$router.push({path: 'recorddetail',query: {id: nid}});
       },
       deleteNotice: function (noticeid) {
         this.$http.post(this.$api.delnotice+noticeid).then(res => {

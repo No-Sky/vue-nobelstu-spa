@@ -4,55 +4,55 @@
       <table width="100%" class="table">
         <tr>
           <th width="35%">订单编号</th>
-          <td>{{order.orderid}}</td>
+          <td>{{notice.order.orderid}}</td>
         </tr>
         <tr>
           <th>教师名称</th>
-          <td>{{order.teacher.teachername}}</td>
+          <td>{{notice.order.teacher.teachername}}</td>
         </tr>
         <tr>
           <th>课程名称</th>
-          <td>{{order.course.coursename}}</td>
+          <td>{{notice.order.course.coursename}}</td>
         </tr>
         <tr>
           <th>开始时间</th>
-          <td>{{order.starttime | date}}</td>
+          <td>{{notice.order.starttime | date}}</td>
         </tr>
 
         <tr>
           <th>课程时长</th>
-          <td>{{order.duration}}</td>
+          <td>{{notice.order.duration}}</td>
         </tr>
         <tr>
           <th>订单状态</th>
           <td>
-            {{order.orderstatus}}
+            {{notice.status?"已同意":"未同意"}}
           </td>
         </tr>
         <tr>
           <th>课程状态</th>
           <td>
-            {{order.coursestatus}}
+            {{notice.order.coursestatus?"已上课":"未上课"}}
           </td>
         </tr>
           <tr>
             <th>留言</th>
-            <td><div style="width:200px;word-wrap: break-word;">{{order.message}}</div></td>
+            <td><div style="width:200px;word-wrap: break-word;">{{notice.order.message}}</div></td>
           </tr>
           <tr>
             <th>评分</th>
             <td>
               <div id="star" class="icons mui-inline" style="margin-left: 6px;">
-                <i :data-index="i" v-for="i in order.score" :key="i" :class="filledStar"></i>
-                <i :data-index="i" v-for="i in 5-order.score" :key="i" :class="star"></i>
+                <i :data-index="i" v-for="i in notice.order.score" :key="i" :class="filledStar"></i>
+                <i :data-index="i" v-for="i in 5-notice.order.score" :key="i" :class="star"></i>
               </div>
             </td>
           </tr>
       </table>
       <!--留言按钮 评价打分按钮-->
         <div  class="btn-box">
-          <mu-button v-if="order.orderstatus==2 && order.coursestatus && order.message==null && (order.score==null || order.score==0)" full-width color="primary" :to="{name: 'grade',query: {id: order.orderid}}">留言评分</mu-button>
-          <mu-button v-if="order.orderstatus==2 && order.coursestatus==false" full-width color="primary" @click="confirmClass(order.orderid)" >确认上课</mu-button>
+          <mu-button v-if="notice.status && notice.order.coursestatus && notice.order.message==null && (notice.order.score==null || notice.order.score==0)" full-width color="primary" :to="{name: 'grade',query: {id: notice.order.orderid}}">留言评分</mu-button>
+          <mu-button v-if="notice.status && notice.order.coursestatus==false" full-width color="primary" @click="confirmClass(notice.order.orderid)" >确认上课</mu-button>
         </div>
     </div>
   </div>
@@ -62,8 +62,7 @@
   export default {
     data () {
       return {
-        order: {
-          score: 0,
+        notice: {
           course: {
             coursename: ''
           },
@@ -76,18 +75,18 @@
       }
     },
     created: function(){
-      let orderid = this.$route.query.id;
-      this.getRecordDetail(orderid);
+      let nid = this.$route.query.id;
+      this.getRecordDetail(nid);
       /*bus.$on('recordDetailEvent', val => {
         this.getRecordDetail(val);
       });*/
     },
     methods: {
-       getRecordDetail: function (orderid) {
-        this.$http.get(this.$api.recorddetail+orderid).then( res => {
+       getRecordDetail: function (nid) {
+        this.$http.get(this.$api.recorddetail+nid).then( res => {
           console.log(res.data);
           if(res.data.code==0){
-            this.order = res.data.data;
+            this.notice = res.data.data;
           }else{
             this.$alert("加载错误");
           }
@@ -98,7 +97,7 @@
             console.log(res.data);
             if (res.data.code==0){
               this.$toast.success("确认成功");
-              this.$router.push({name: 'grade',query: {id: order.orderid}});
+              this.$router.push({name: 'grade',query: {id: orderid}});
             }else{
               this.$toast.warning("确认失败");
             }
@@ -135,7 +134,7 @@
 
   .table td,
   .table th {
-    border: 1px solid #cad9ea;
+    bnotice.order: 1px solid #cad9ea;
     padding: 0 1em 0;
   }
 
