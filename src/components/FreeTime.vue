@@ -11,7 +11,7 @@
         <div v-for="order in orders" :key="order.orderid">
         <mu-list-item :ripple="false"  >
           <mu-list-item-content>
-            <mu-list-item-title>课程名： {{order.course.coursename}}</mu-list-item-title>
+            <mu-list-item-title>课程名： {{order.course.courseid==-1?'学生自选课程':order.course.coursename}}</mu-list-item-title>
             <mu-list-item-sub-title style="color: rgba(0, 0, 0, .87)">开始时间：{{order.starttime | date}}</mu-list-item-sub-title>
             <mu-list-item-sub-title style="color: rgba(0, 0, 0, 0.87);">
               课程时长: {{order.duration}}

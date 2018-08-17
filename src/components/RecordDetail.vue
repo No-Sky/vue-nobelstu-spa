@@ -68,13 +68,11 @@
       return {
         notice: {
           order: {
-            'orderid': ''
+            'orderid': '',
+            'teachername': ''
           },
           course: {
             'coursename': ''
-          },
-          teacher: {
-            'teachername': ''
           }
         },
         star: 'mui-icon mui-icon-star',
@@ -100,7 +98,7 @@
         })
       },
       confirmClass: function (orderid) {
-          this.$http.post(this.$api.confirmclass+orderid).then(res => {
+          this.$http.get(this.$api.confirmclass+orderid).then(res => {
             console.log(res.data);
             if (res.data.code==0){
               this.$toast.success("确认成功");

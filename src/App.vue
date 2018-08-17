@@ -45,7 +45,7 @@
       </mu-container>
     <div ref="component">
       <!--下拉刷新组件-->
-      <mu-load-more @refresh="refresh" :refreshing="refreshing" loading-text="正在刷新">
+      <mu-load-more @refresh="pullRefresh" :refreshing="refreshing" loading-text="正在刷新">
     <!--顶部-->
     <div id="header" style="width: 100%;height: 46px; position: fixed;top:0;left:0;right:0;z-index:999;">
       <mu-appbar style="width: 100%; height:100%; text-align: center;" color="primary">
@@ -148,12 +148,12 @@ import bus from './common/eventBus.js'
           this.isLogin = true;
         }
       },
-      refresh: function (event) {
+      pullRefresh: function () {
         this.refreshing = true;
         this.$refs.component.scrollTop = 0;
         setTimeout(() => {
           this.refreshing = false;
-          this.$forceUpdate();
+          // this.$forceUpdate();
         },2000)
       },
       refreshSession: function () {
@@ -210,8 +210,8 @@ import bus from './common/eventBus.js'
         }, 200)
         this.$router.push("/search");
       }
-     /* reload () {
-        this.isRouterAlive = false
+    /* reload () {
+        // this.isRouterAlive = false
         this.$nextTick(() => (this.isRouterAlive = true))
       }*/
     },

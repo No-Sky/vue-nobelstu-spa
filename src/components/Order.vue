@@ -11,12 +11,21 @@
         <mu-form-item prop="input" label="课程时长">
           <mu-text-field v-model="order.duration" disabled></mu-text-field>
         </mu-form-item>
-        <mu-form-item v-if="order.course" prop="input" label="课程时长">
+        <mu-form-item v-if="order.course.courseid!=-1" prop="input" label="选择课程">
           <mu-text-field v-model="order.course.coursename" disabled></mu-text-field>
         </mu-form-item>
         <mu-form-item v-else prop="select" label="选择课程">
-          <mu-select re="courseForm.courseid">
-            <mu-option v-for="option in options" :key="option.courseid" :label="option.coursename" :value="option.courseid"></mu-option>
+          <mu-select v-model="courseid">
+            <mu-option v-for="option in options" :key="option.courseid" :label="option.coursename" :value="option.courseid">
+              <mu-list-item-action avatar>
+                <mu-avatar :size="36" color="primary">
+                  {{option.coursename.substring(0, 1)}}
+                </mu-avatar>
+              </mu-list-item-action>
+              <mu-list-item-content>
+                <mu-list-item-title>{{option.coursename}}</mu-list-item-title>
+              </mu-list-item-content>
+            </mu-option>
           </mu-select>
         </mu-form-item>
       </mu-form>
@@ -39,12 +48,7 @@
           course: {}
         },
         options: [],
-        coursesForm: {
-          orderid: '',
-          teacherid: 0,
-          stuid: 0,
-          courseid: 0
-        }
+        courseid: null
       }
     },
     created () {
@@ -60,15 +64,16 @@
           console.log(res.data);
           if(res.data.code==0){
             this.order = res.data.data;
-            this.order.starttime = dateFormat(this.order.starttime);
-            if(!this.order.course){
-              this.getCourse();
+            this.order.starttime = dateFormat(this.order.starttime)
+            if(this.order.course.courseid==-1){
+              this.getCourse(this.order.teacher.teacherid);
             }
           }
         })
       },
       getCourse: function(teacherid){
           this.$http.get(this.$api.teacher+teacherid).then(res => {
+            console.log(res.data)
             if(res.data.code==0){
               this.options = res.data.data.courses;
             }else{
@@ -82,7 +87,7 @@
         params.append("order.orderid",this.order.orderid);
         params.append("teacher.teacherid", this.order.teacher.teacherid);
         params.append("stu.stuid",stu.stuid);
-        params.append("course.courseid",this.order.course!=null?this.order.course.courseid:this.coursesForm.courseid);
+        params.append("course.courseid",this.courseid);
         this.$http.post(this.$api.choiceOrder, params).then(res => {
           console.log(res.data);
           if(res.data.isChoice){
