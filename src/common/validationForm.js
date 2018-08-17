@@ -70,7 +70,7 @@ export function validatePwd(ev){
   return true;
 }
 //邮箱输入是否符合格式
-export function validteEmail(ev){
+export function validateEmail(ev){
   let obj = ev.currentTarget;
   if (!checkEmail(obj.value)) {
     this.$toast.info("邮箱不符合格式");

@@ -207,6 +207,7 @@ export default {
       params.append('imageData', imageData);
       self.$http.post(self.$api.uploadavatar,params).then(res => {
         console.log(res.data);
+        window.location.reload();
       })
       self.destoried();
 

@@ -37,13 +37,13 @@
             <mu-list-item  :ripple="true" button>
               <mu-list-item-content>
                 <mu-list-item-title>课程名： {{notice.order.course.coursename}}</mu-list-item-title>
-                <mu-list-item-sub-title style="color: rgba(0, 0, 0, .87)">开始时间：2098981</mu-list-item-sub-title>
+                <mu-list-item-sub-title style="color: rgba(0, 0, 0, .87)">开始时间：{{notice.order.starttime | date}}</mu-list-item-sub-title>
                 <mu-list-item-sub-title style="color: rgba(0, 0, 0, .87)">
                   课程时长: {{notice.order.duration}}
                 </mu-list-item-sub-title>
               </mu-list-item-content>
               <mu-list-item-action >
-                <mu-list-item-after-text>2 min</mu-list-item-after-text>
+                <mu-list-item-after-text>{{notice.selectivetime | date}}</mu-list-item-after-text>
                 <mu-button small color="primary" @click="toRecordDetail(notice.nid)">详情</mu-button>
               </mu-list-item-action>
             </mu-list-item>
@@ -118,16 +118,30 @@
         this.$router.push({path: 'recorddetail',query: {id: nid}});
       },
       deleteNotice: function (noticeid) {
-        this.$http.post(this.$api.delnotice+noticeid).then(res => {
-          console.log(res.data);
-          if (res.data.code==1){
-            this.$toast.success("取消成功");
-            this.reload();
-          } else {
-            this.$toast.warning("取消失败");
+        this.$confirm("确定要取消预约？", {
+          type: 'warning'
+        }).then(({result}) => {
+          if (result) {
+            this.$http.post(this.$api.delnotice+noticeid).then(res => {
+              console.log(res.data);
+              if (res.data.code==0){
+                this.$toast.success("取消成功");
+                window.location.reload();
+              } else {
+                this.$toast.warning("取消失败");
+              }
+            })
           }
-        })
+        });
       }
+    },
+    mounted () {
+      bus.$on("reloadEvent", () =>{
+        this.getRecords();
+      })
+    },
+    beforeDestroy () {
+      bus.$off("reloadEvent");
     }
   }
 </script>

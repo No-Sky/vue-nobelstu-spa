@@ -1,5 +1,11 @@
 <template>
   <div>
+    <mu-paper  style="position: fixed;height: 100%;width: 100%;" v-if="orders.length==0" :z-depth="1">
+        <div  style="width: 215px; height: 230px;margin-top: 30%;margin-left: auto;margin-right: auto;">
+          <img src="../assets/images/empty.png" />
+          <span style="margin-left: 30px;font-size: 16px;">还没有添加空闲时间哦</span>
+        </div>
+    </mu-paper>
     <mu-paper :z-depth="1" >
       <mu-list textline="three-line">
         <div v-for="order in orders" :key="order.orderid">
@@ -33,11 +39,13 @@
       }
     },
     created: function () {
-      let id = this.$route.query.id;
-      this.getFreetimes(id);
-     /* bus.$on("freetimeEvent",id => {
+     bus.$on("freetimeEvent",id => {
         this.getFreetimes(id);
-      })*/
+      })
+      if (this.orders.length==0) {
+        let id = this.$route.query.id;
+        this.getFreetimes(id);
+      }
     },
     methods: {
       getFreetimes: function (id) {
@@ -62,6 +70,6 @@
     }
   }
 </script>
-<style>
+<style scoped>
 
 </style>

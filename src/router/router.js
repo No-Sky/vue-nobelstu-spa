@@ -13,6 +13,7 @@ import About from '../components/About.vue'
 import Login from '../components/Login.vue'
 import Reg from '../components/Reg.vue'
 import ForgetPwd from '../components/ForgetPwd.vue'
+import LoadMore from '../components/LoadMore'
 
 Vue.use(Router);
 
@@ -117,6 +118,10 @@ export default new Router({
       path: '/forgetpwd',
       name: 'foegetpwd',
       component: ForgetPwd
+    }, {
+      path: '/loadmore',
+      name: 'loadmore',
+      component: LoadMore
     }
   ]
 })

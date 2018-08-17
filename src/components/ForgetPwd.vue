@@ -4,7 +4,7 @@
       <form class="mui-input-group">
         <div class="mui-input-row">
           <label>邮箱</label>
-          <input id='email' @blur="checkemail=validateTextInput($event)&&validteEmail($event)" type="email" class="mui-input-clear mui-input" placeholder="请输入注册邮箱">
+          <input id='email' @blur="checkemail=validateTextInput($event)&&validateEmail($event)" type="email" class="mui-input-clear mui-input" placeholder="请输入注册邮箱">
         </div>
       </form>
       <div class="mui-content-padded">
@@ -15,7 +15,7 @@
       <form class="mui-input-group">
         <div class="mui-input-row">
           <label>验证码</label>
-          <input id="verifycode" @blur="checkverifycode=validateTextInput($ev)" type="text" class="mui-input-clear " placeholder="请输入验证码">
+          <input id="verifycode" @blur="checkverifycode=validateTextInput($event)" type="text" class="mui-input-clear " placeholder="请输入验证码">
           <input id="btn-reget" type="button" style="" class="mui-btn btn-code" value="获取"/>
         </div>
       </form>
@@ -41,7 +41,9 @@
   </div>
 </template>
 <script>
-  import "../common/validationForm.js"
+  import {validateTextInput} from "../common/validationForm";
+  import {validatePwd} from "../common/validationForm";
+  import {validateEmail} from "../common/validationForm";
   export default {
     data () {
       return {
@@ -55,14 +57,18 @@
       }
     },
     methods: {
+      validateTextInput,
+      validatePwd,
+      validateEmail,
       sendMail: function (ev) {
         if(!this.checkemail) return false;
         let btn = ev.currentTarget;
+        btn.innerHTML = "正在验证中...";
         btn.setAttribute("disabled", "disabled");
-        let params = {
-          email: document.getElementById('email')
-        }
-        this.$http.get(this.$api.forget, params).then(res => {
+        let email = document.getElementById('email').value;
+        let params = new URLSearchParams();
+        params.append("email", email);
+        this.$http.post(this.$api.forget, params).then(res => {
           console.log(res.data);
           if (res.data.code==0){
             this.$toast.success("发送成功");
@@ -75,23 +81,29 @@
               btn.setAttribute("value",--time+'s')
             }, 1000); //等待时间
             setTimeout(function () {
-              btn.setAttribute("disabled", false).val("重新获取"); //倒计时
+              btn.setAttribute("value","重新获取")
+              btn.removeAttribute("disabled"); //倒计时结束
               clearInterval(setIn);
             }, 60*1000);
           } else {
             this.$toast.warning(res.data.message);
           }
+        }).catch(err => {
+          console.log(err)
         })
       },
       sendVerifyCode: function (ev) {
         if (!this.checkverifycode) return false;
         let btn = ev.currentTarget;
+        btn.innerHTML = '正在验证中...';
         btn.setAttribute("disabled", "disabled");
-        let params = {
-          email: document.getElementById('email'),
-          verifycode: document.getElementById('verifycode')
-        }
-        this.$http.get(this.$api.verifyforget, params).then(res => {
+        let email = document.getElementById('email').value;
+        let verifycode = document.getElementById('verifycode').value
+        let params = new URLSearchParams();
+        params.append("email", email);
+        params.append("verifycode", verifycode);
+
+        this.$http.post(this.$api.verifyforget, params).then(res => {
           console.log(res.data);
           if (res.data.isVerify){
             this.inputVerifyBox = false;
@@ -105,15 +117,20 @@
       resetPwd: function (ev) {
         if (!(this.checknewpwd && this.checkrepwd)) return false;
         let btn = ev.currentTarget;
+        btn.innerHTML = '密码正在重置中...';
         btn.setAttribute("disabled", "disabled");
-        let params ={
-          email: document.getElementById('email'),
-          newpwd: document.getElementById('newpwd')
-        }
+        let email = document.getElementById('email').value;
+        let newpwd = document.getElementById('newpwd').value;
+        let params = new URLSearchParams();
+        params.append("email", email);
+        params.append("newpwd", this.$md5.hex(newpwd));
+
         this.$http.post(this.$api.reset, params).then(res => {
           console.log(res.data);
           if (res.data.isReset) {
-            this.$toast.success("密码重置成功，正在前往登录页面");
+            setTimeout(() => {
+              this.$toast.success("密码重置成功，正在前往登录页面");
+            }, 1000)
             this.$router.push("/login");
           } else {
             this.$toast.warning(res.data.errmsg);
@@ -124,7 +141,7 @@
       validateRepwd: function (ev) {
         let obj = ev.currentTarget;
         let repwd = obj.value;
-        let newpwd = documetn.getElementById('newpwd');
+        let newpwd = document.getElementById('newpwd').value;
         if (repwd!=newpwd) {
           this.$toast.info("两次密码输入不一致");
           return false;

@@ -65,6 +65,10 @@
       }
     },
     mounted () {
+      bus.$on("reloadEvent", () =>{
+        window.location.reload();
+      });
+      mui.init();
       mui.ready(function () {
         mui.init();
         let header = document.getElementById('header');
@@ -74,6 +78,9 @@
         //create
         window.indexedList = new mui.IndexedList(list);
       });
+    },
+    beforeDestroy () {
+      bus.$off("reloadEvent");
     }
   }
 </script>

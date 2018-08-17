@@ -35,11 +35,11 @@
             {{notice.order.coursestatus?"已上课":"未上课"}}
           </td>
         </tr>
-          <tr>
+          <tr v-show="notice.order.message!=null">
             <th>留言</th>
             <td><div style="width:200px;word-wrap: break-word;">{{notice.order.message}}</div></td>
           </tr>
-          <tr>
+          <tr v-show="notice.order.score!=null">
             <th>评分</th>
             <td>
               <div id="star" class="icons mui-inline" style="margin-left: 6px;">
@@ -48,11 +48,15 @@
               </div>
             </td>
           </tr>
+        <tr v-show="notice.order.multiple">
+          <th>提示</th>
+          <td>此课程为多人课程尚不支持确认上课和留言评价功能</td>
+        </tr>
       </table>
       <!--留言按钮 评价打分按钮-->
         <div  class="btn-box">
           <mu-button v-if="notice.status && notice.order.coursestatus && notice.order.message==null && (notice.order.score==null || notice.order.score==0)" full-width color="primary" :to="{name: 'grade',query: {id: notice.order.orderid}}">留言评分</mu-button>
-          <mu-button v-if="notice.status && notice.order.coursestatus==false" full-width color="primary" @click="confirmClass(notice.order.orderid)" >确认上课</mu-button>
+          <mu-button v-if="notice.status && !notice.order.coursestatus && !notice.order.multiple" full-width color="primary" @click="confirmClass(notice.order.orderid)" >确认上课</mu-button>
         </div>
     </div>
   </div>
@@ -63,11 +67,14 @@
     data () {
       return {
         notice: {
+          order: {
+            'orderid': ''
+          },
           course: {
-            coursename: ''
+            'coursename': ''
           },
           teacher: {
-            teachername: ''
+            'teachername': ''
           }
         },
         star: 'mui-icon mui-icon-star',
@@ -134,7 +141,7 @@
 
   .table td,
   .table th {
-    bnotice.order: 1px solid #cad9ea;
+    border: 1px solid #cad9ea;
     padding: 0 1em 0;
   }
 

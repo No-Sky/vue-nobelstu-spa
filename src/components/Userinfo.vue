@@ -123,6 +123,7 @@
   export default {
     data () {
       return {
+        headImg,
         loadImg: '../assets/clipper/loading.gif',
         user: {
           stuprofilephoto: ''
@@ -135,19 +136,34 @@
       }
     },
     created (){
-      this.user = JSON.parse(localStorage.getItem('user'));
+      this.getUserinfo();
       for(let i=1; i<=70; i++){
         this.options.push(i);
       }
     },
     methods: {
+      getUserinfo: function () {
+        let token = localStorage.getItem("token");
+        if(!token)
+          token = "";
+        this.$http.get(this.$api.session, {params:{token: token}}).then(res => {
+          console.log(res.data);
+          if (res.data.code==0) {
+            this.user = res.data.data;
+            if (this.user.stuprofilephoto==null) this.user.stuprofilephoto = headImg;
+          } else {
+            this.$alert(res.data.message);
+          }
+        })
+      },
       submitForm: function () {
         let params = this.user;
         this.$http.post(this.$api.student, params).then(res => {
           console.log(res.data);
           if (res.data.code==0) {
             this.$toast.success(res.data.message);
-            this.reload();
+            this.closeModal();
+            window.location.reload();
           }else{
             this.$toast.warning(res.data.message);
           }

@@ -8,7 +8,7 @@
         </div>
         <div class="mui-input-row">
           <label>邮箱：</label>
-          <input v-model="regStu.stuemail" @blur="checkstuemail=validateTextInput($event)&&validteEmail($event)" id="stuemail" type="email" class="mui-input-clear " placeholder="请输入邮箱">
+          <input v-model="regStu.stuemail" @blur="checkstuemail=validateTextInput($event)&&validateEmail($event)" id="stuemail" type="email" class="mui-input-clear " placeholder="请输入邮箱">
         </div>
         <div class="mui-input-row">
           <label>验证码：</label>
@@ -21,7 +21,7 @@
         </div>
         <div class="mui-input-row">
           <label>确认密码：</label>
-          <input id="restupwd" v-model="regStu.restupwd" @blur="checkstupwd=validateTextInput($event)&&validateRepwd($event)" type="password" class="mui-input-clear mui-input-password" placeholder="确认密码">
+          <input id="restupwd" v-model="regStu.restupwd" @blur="checkrestupwd=validateTextInput($event)&&validateRepwd($event)" type="password" class="mui-input-clear mui-input-password" placeholder="确认密码">
         </div>
       </div>
       <div class="mui-card-footer">
@@ -31,7 +31,10 @@
   </div>
 </template>
 <script>
-  import '../common/validationForm.js'
+  import {validateTextInput} from "../common/validationForm";
+  import {validatePwd} from "../common/validationForm";
+  import {validateEmail} from "../common/validationForm";
+
   export default {
     data () {
       return {
@@ -50,16 +53,18 @@
       }
     },
     methods: {
+      validateTextInput,
+      validatePwd,
+      validateEmail,
       //表单验证未写
       submitReg: function () {
-        if (!(this.checkstuname && this.checkstuemail && this.checkverifycode && this.checkstupwd && this,checkrepwd))
+        if (!(this.checkstuname && this.checkstuemail && this.checkverifycode && this.checkstupwd && this.checkrestupwd))
             return false;
-        let params = {
-          stuname: this.regStu.stuname,
-          stuemail: this.regStu.stunemail,
-          verifycode: this.regStu.verifycode,
-          stupwd: this.stupwd
-        }
+        let params = new URLSearchParams();
+        params.append("stuname", this.regStu.stuname);
+        params.append("stuemail", this.regStu.stuemail);
+        params.append("stupwd", this.$md5.hex(this.regStu.stupwd));
+        params.append("verifycode", this.regStu.verifycode);
         this.$http.post(this.$api.reg, params).then(res => {
             console.log(res.data);
             if (res.data.code==0) {
@@ -71,8 +76,10 @@
         })
       },
       clickButton: function (ev) {
-        // checkStuEmail();
-        // console.log(checkemail);
+        if (!this.checkstuemail) {
+          this.$toast.info("请先正确填写邮箱")
+          return false;
+        }
         //从绑定目标触发
         let btn = ev.currentTarget;
         let time = 60;
@@ -81,11 +88,14 @@
           btn.setAttribute("value",--time+'s')
         }, 1000); //等待时间
         setTimeout(function () {
-          btn.setAttribute("disabled", false).val("重新获取"); //倒计时
           clearInterval(setIn);
+          btn.setAttribute("value","重新获取");
+          btn.removeAttribute("disabled"); //倒计时结束
         }, 60*1000);
         //点击发送邮箱验证码
-          this.$http.post(this.$api.sendverify).then(res => {
+          let params = new URLSearchParams();
+          params.append("email", this.regStu.stuemail)
+          this.$http.post(this.$api.sendverify, params).then(res => {
             console.log(res.data);
             if (res.data.code==0){
               this.$toast.success("发送成功");
@@ -98,7 +108,7 @@
       validateRepwd: function (ev) {
         let obj = ev.currentTarget;
         let repwd = obj.value;
-        let stupwd = documetn.getElementById('stupwd');
+        let stupwd = document.getElementById('stupwd').value;
         if (repwd!=stupwd) {
           this.$toast.info("两次密码输入不一致");
           return false;

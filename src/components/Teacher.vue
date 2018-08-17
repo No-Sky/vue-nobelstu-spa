@@ -82,9 +82,13 @@
       }
     },
     created: function () {
-      bus.$on("teacherInfoEvent",id => {
+     bus.$on("teacherInfoEvent",id => {
         this.getTeacher(id);
       })
+      if(this.teacher.teacherid==0){
+        let id = this.$route.query.id;
+       this.getTeacher(id);
+      }
     },
     methods: {
       getTeacher: function(teacherid){

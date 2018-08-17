@@ -21,7 +21,7 @@
             账号与安全
           </mu-list-item>
           <mu-divider></mu-divider>
-          <mu-list-item button to="/record" @click="closeDrawer">
+          <mu-list-item button @click="toRecord">
             <mu-icon value="dashboard" color="primary"></mu-icon>&nbsp;&nbsp;
             约课记录
           </mu-list-item>
@@ -43,6 +43,7 @@
         </mu-list>
       </mu-drawer>
       </mu-container>
+
     <!--顶部-->
     <div id="header" style="width: 100%;height: 46px; position: fixed;top:0;left:0;right:0;z-index:999;">
       <mu-appbar style="width: 100%; height:100%; text-align: center;" color="primary">
@@ -61,7 +62,7 @@
           icon slot="right">
           <mu-icon value="home"></mu-icon>
         </mu-button>
-        <mu-button to="/search"
+        <mu-button @click="toSearch"
           v-show="this.$route.path=='/index'"
           icon slot="right">
           <mu-icon value="search"></mu-icon>
@@ -69,13 +70,16 @@
         NobelEdu
       </mu-appbar>
     </div>
+    <div ref="component">
+      <!--下拉刷新组件-->
+      <mu-load-more @refresh="refresh" :refreshing="refreshing" loading-text="正在刷新">
+        <keep-alive>
+          <router-view  style="margin-top: 46px" :key="key" @loginChange="getUser"></router-view>
+        </keep-alive>
+      </mu-load-more>
+    </div>
 
-    <keep-alive>
-      <router-view style="margin-top: 46px" v-if="isRouterAlive" @loginChange="getUser"></router-view>
-    </keep-alive>
-
-
-    <!--底部导航-->
+      <!--底部导航-->
     <!--<div style="position: fixed;bottom: 0;width: 100%;z-index: 999;">
       <mu-container>
         <mu-bottom-nav :value.sync="shift">
@@ -98,6 +102,7 @@
 import headimg from './assets/images/logoimg.png'
 import slidebg from './assets/images/sidebar-2.jpg'
 import {mapActions} from 'vuex'
+import bus from './common/eventBus.js'
 
   export default {
     name: 'App',
@@ -108,7 +113,7 @@ import {mapActions} from 'vuex'
     },
     data () {
       return {
-        isRouterAlive:true,
+        refreshing: false,
         isLogin: false,
         user: {
           stuprofilephoto: ''
@@ -139,9 +144,17 @@ import {mapActions} from 'vuex'
       getUser: function(){
         let user = localStorage.getItem('user');
         if(user){
-          this.user = JSON.parse(user);
+          this.user = JSON.parse(user)
+          if (this.user.stuprofilephoto==null) this.user.stuprofilephoto = headimg;
           this.isLogin = true;
         }
+      },
+      refresh: function (event) {
+        this.refreshing = true;
+        this.$refs.component.scrollTop = 0;
+        this.refreshing = false;
+        this.$forceUpdate();
+
       },
       refreshSession: function () {
         // 当主页刷新时，如果服务端设置的cookie（包含sessionId）
@@ -170,6 +183,7 @@ import {mapActions} from 'vuex'
           }).catch(err => {
           this.$toast.error(err.message)
         })
+        this.refreshing = false;
       },
       logout: function(){
         this.userLoginOut();
@@ -185,19 +199,27 @@ import {mapActions} from 'vuex'
       closeDrawer: function () {
         this.open = false;
       },
-      reload (){
-        this.isRouterAlive = false
-        this.$nextTick(function(){
-          this.refreshSession();
-          this.isRouterAlive = true
-        })
+      toRecord: function () {
+        this.closeDrawer();
+        bus.$emit("reloadEvent");
+        this.$router.push("/record")
+      },
+      toSearch: function () {
+        bus.$emit("reloadEvent");
+        this.$router.push("/search");
       }
+     /* reload () {
+        this.isRouterAlive = false
+        this.$nextTick(() => (this.isRouterAlive = true))
+      }*/
     },
     mounted(){
 
     },
-    watch: {
-      // '$route': this.path=this.$route.path
+    computed: {
+      key() {
+        return this.$route.name !== undefined? this.$route.name +new Date(): this.$route +new Date()
+      }
     }
   }
 </script>
