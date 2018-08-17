@@ -43,7 +43,9 @@
         </mu-list>
       </mu-drawer>
       </mu-container>
-
+    <div ref="component">
+      <!--下拉刷新组件-->
+      <mu-load-more @refresh="refresh" :refreshing="refreshing" loading-text="正在刷新">
     <!--顶部-->
     <div id="header" style="width: 100%;height: 46px; position: fixed;top:0;left:0;right:0;z-index:999;">
       <mu-appbar style="width: 100%; height:100%; text-align: center;" color="primary">
@@ -70,14 +72,11 @@
         NobelEdu
       </mu-appbar>
     </div>
-    <div ref="component">
-      <!--下拉刷新组件-->
-      <mu-load-more @refresh="refresh" :refreshing="refreshing" loading-text="正在刷新">
         <keep-alive>
           <router-view  style="margin-top: 46px" :key="key" @loginChange="getUser"></router-view>
         </keep-alive>
-      </mu-load-more>
-    </div>
+    </mu-load-more>
+  </div>
 
       <!--底部导航-->
     <!--<div style="position: fixed;bottom: 0;width: 100%;z-index: 999;">
@@ -152,9 +151,10 @@ import bus from './common/eventBus.js'
       refresh: function (event) {
         this.refreshing = true;
         this.$refs.component.scrollTop = 0;
-        this.refreshing = false;
-        this.$forceUpdate();
-
+        setTimeout(() => {
+          this.refreshing = false;
+          this.$forceUpdate();
+        },2000)
       },
       refreshSession: function () {
         // 当主页刷新时，如果服务端设置的cookie（包含sessionId）
@@ -205,7 +205,9 @@ import bus from './common/eventBus.js'
         this.$router.push("/record")
       },
       toSearch: function () {
-        bus.$emit("reloadEvent");
+        setTimeout(() => {
+          bus.$emit("reloadEvent");
+        }, 200)
         this.$router.push("/search");
       }
      /* reload () {

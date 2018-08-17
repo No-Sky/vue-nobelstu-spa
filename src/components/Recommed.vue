@@ -13,7 +13,7 @@
         <mu-paper>
           <mu-grid-list>
               <mu-grid-tile v-for="(tile, index) in list" :key="index">
-                    <img :src="imgRoot+tile.teacherprofilephoto" >
+                    <img :src="tile.teacherprofilephoto" >
                     <span slot="title">{{tile.teachername}}</span>
                     <!--<span slot="subTitle">by <b>{{tile.author}}</b></span>-->
                     <mu-button slot="action" @click="toTeacherinfo(tile.teacherid)" icon>
@@ -44,7 +44,6 @@
           carouselImg3,
           carouselImg4
         ],
-        imgRoot: this.$api.imgRoot,
         list: [{
           teacherid: 0,
           teachername: 'awdawd',

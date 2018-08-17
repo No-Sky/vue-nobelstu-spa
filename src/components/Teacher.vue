@@ -3,7 +3,7 @@
     <mu-container :style="avatarStyle">
       <mu-row justify-content="center">
         <mu-avatar :size="size">
-          <img :src="(teacher.teacherprofilephoto==''||teacher.teacherprofilephoto==null)?logoImg:imgRoot+teacher.teacherprofilephoto">
+          <img :src="(teacher.teacherprofilephoto==''||teacher.teacherprofilephoto==null)?logoImg:teacher.teacherprofilephoto">
         </mu-avatar>
       </mu-row>
     </mu-container>
@@ -57,7 +57,6 @@
     name: 'Teahcer',
     data () {
       return {
-        imgRoot: this.$api.imgRoot,
         teacher:{
           recommended: false,
           roleid: 0,
