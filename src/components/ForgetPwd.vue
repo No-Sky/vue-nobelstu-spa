@@ -90,6 +90,9 @@
           }
         }).catch(err => {
           console.log(err)
+          btn.innerHTML = '提交';
+          btn.removeAttribute("disabled");
+          this.$toast.warning("请求错误，请重新尝试");
         })
       },
       sendVerifyCode: function (ev) {
@@ -112,6 +115,12 @@
             this.$toast.warning(res.data.errmsg);
             btn.setAttribute("disabled", "false");
           }
+        }).catch(err => {
+          console.log(err)
+          btn.innerHTML = '提交';
+          btn.removeAttribute("disabled");
+          this.$toast.warning("请求错误，请重新尝试");
+
         })
       },
       resetPwd: function (ev) {

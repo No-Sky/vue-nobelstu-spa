@@ -102,6 +102,9 @@
             } else {
               this.$toast.warning(res.data.message);
             }
+          }).catch(err => {
+            console.log(err)
+            this.$toast.error("发送失败，请重新尝试")
           })
 
         },
