@@ -82,7 +82,7 @@
         }
         //从绑定目标触发
         let btn = ev.currentTarget;
-        let time = 60;
+        let time = 120;
         btn.setAttribute("disabled", "disabled");//按钮倒计时
         let setIn = setInterval(function () {
           btn.setAttribute("value",--time+'s')
@@ -91,7 +91,7 @@
           clearInterval(setIn);
           btn.setAttribute("value","重新获取");
           btn.removeAttribute("disabled"); //倒计时结束
-        }, 60*1000);
+        }, 2*60*1000);
         //点击发送邮箱验证码
           let params = new URLSearchParams();
           params.append("email", this.regStu.stuemail)

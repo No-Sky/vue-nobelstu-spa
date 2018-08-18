@@ -75,7 +75,7 @@
             this.inputEmailBox = false;
             this.inputVerifyBox = true;
             let btn = document.getElementById('btn-reget');
-            let time = 60;
+            let time = 120;
             btn.setAttribute("disabled", "disabled");//按钮倒计时
             let setIn = setInterval(function () {
               btn.setAttribute("value",--time+'s')
@@ -84,7 +84,7 @@
               btn.setAttribute("value","重新获取")
               btn.removeAttribute("disabled"); //倒计时结束
               clearInterval(setIn);
-            }, 60*1000);
+            }, 2*60*1000);
           } else {
             this.$toast.warning(res.data.message);
           }
