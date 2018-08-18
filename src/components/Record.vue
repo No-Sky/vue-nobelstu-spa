@@ -2,9 +2,9 @@
   <div>
     <mu-container>
       <mu-tabs :value.sync="active" color="green" indicator-color="yellow" full-width>
-        <mu-tab>等待中</mu-tab>
-        <mu-tab>已确认</mu-tab>
-        <mu-tab>已拒绝</mu-tab>
+        <mu-tab>等待中({{notice_do.length}})</mu-tab>
+        <mu-tab>已确认({{notice_Y.length}})</mu-tab>
+        <mu-tab>已拒绝({{notice_N.length}})</mu-tab>
       </mu-tabs>
       <div v-if="active === 0">
         <mu-paper :z-depth="1">

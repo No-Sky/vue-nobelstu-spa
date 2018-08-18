@@ -153,6 +153,7 @@ import bus from './common/eventBus.js'
         this.$refs.component.scrollTop = 0;
         setTimeout(() => {
           this.refreshing = false;
+          window.location.reload()
           // this.$forceUpdate();
         },2000)
       },

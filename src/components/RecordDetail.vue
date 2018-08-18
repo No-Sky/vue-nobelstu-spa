@@ -43,8 +43,8 @@
             <th>评分</th>
             <td>
               <div id="star" class="icons mui-inline" style="margin-left: 6px;">
-                <i :data-index="i" v-for="i in notice.order.score" :key="i" :class="filledStar"></i>
-                <i :data-index="i" v-for="i in 5-notice.order.score" :key="i" :class="star"></i>
+                <i :data-index="i" v-for="i in notice.order.score" :key="i+'fill'" :class="filledStar"></i>
+                <i :data-index="j" v-for="j in 5-notice.order.score" :key="j" :class="star"></i>
               </div>
             </td>
           </tr>

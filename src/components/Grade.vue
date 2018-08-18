@@ -5,7 +5,8 @@
       <br />
       <br />
       <div class="row mui-input-row">
-        <textarea rows="3" id="message" v-model="message" name="message" class="mui-input-clear question" placeholder="请根据你的上课情况和老师表现留言哦"></textarea>
+        <input type="hidden" id="orderid" v-model="orderid"/>
+        <textarea rows="3" id="message"  name="message" class="mui-input-clear question" placeholder="请根据你的上课情况和老师表现留言哦"></textarea>
       </div>
       <div class="">
         <p class="message-2">评分</p>
@@ -25,8 +26,8 @@
             </a>
           </li>
         </ul>
-        <div class="box-btn">
-          <mu-button full-width color="primary" @click="submitGrade">提交</mu-button>
+        <div id="box-btn">
+          <mu-button full-width color="primary">提交</mu-button>
         </div>
       </div>
     </div>
@@ -36,51 +37,75 @@
   export default {
     data () {
       return {
-        orderid: '',
-        message: '',
-        score: 0
+        orderid: ''
       }
     },
     created () {
       this.orderid = this.$route.query.id;
     },
+    mounted () {
+        let api = this.$api.grade;
+        let http = this.$http;
+        let $toast = this.$toast;
+        let $router = this.$router;
+        let num;
+        mui('.icons').on('tap', 'i', function() {
+          let index = parseInt(this.getAttribute("data-index"));
+          let parent = this.parentNode;
+          let children = parent.children;
+          if(this.classList.contains("mui-icon-star")) { //点击的那个之前如果由空心的星星变成实心的
+            for(let i = 0; i < index; i++) {
+              children[i].classList.remove('mui-icon-star'); //star是空心的星星
+              children[i].classList.add('mui-icon-star-filled'); //filled是实心的黄色星星
+            }
+          } else {
+            for(let i = index; i < 5; i++) { //点击的那个之后由实心的星星变成空心的
+              children[i].classList.add('mui-icon-star');
+              children[i].classList.remove('mui-icon-star-filled');
+            }
+          }
+          //打了几颗星呢
+          console.log(index);
+          num = index;
+        });
+
+        document.getElementById('box-btn').addEventListener("tap", function () {
+          let orderid = document.getElementById('orderid').value;
+          let message = document.getElementById('message').value;
+          let params = new URLSearchParams();
+          params.append("orderid", orderid);
+          params.append("message",message);
+          params.append("score", num);
+          // mui.ajax()
+          http.post(api, params).then(res => {
+             console.log(res.data);
+             if (res.data.code==0){
+               $toast.success(res.data.message);
+               $router.push("/record");
+             }else{
+               $toast.warning(res.data.message);
+             }
+           })
+        }, true);
+
+    },
     methods: {
-      submitGrade: function () {
+      /*submitGrade: function () {
         let params = new URLSearchParams();
         params.append("orderid",this.orderid);
         params.append("message",this.message);
-        params.append("score",this.score);
-        this.$http.post(this.$api.grade, params).then(res => {
-          console.log(res.data);
-          if (res.data.code==0){
-            this.$toast.success(res.data.message);
-            this.$router.push("/record");
-          }else{
-            this.$toast.warning(res.data.message);
-          }
-        })
-      }
-    },
-    mounted () {
-      mui('.icons').on('tap', 'i', function() {
-        let index = parseInt(this.getAttribute("data-index"));
-        let parent = this.parentNode;
-        let children = parent.children;
-        if(this.classList.contains("mui-icon-star")) { //点击的那个之前如果由空心的星星变成实心的
-          for(let i = 0; i < index; i++) {
-            children[i].classList.remove('mui-icon-star'); //star是空心的星星
-            children[i].classList.add('mui-icon-star-filled'); //filled是实心的黄色星星
-          }
-        } else {
-          for(let i = index; i < 5; i++) { //点击的那个之后由实心的星星变成空心的
-            children[i].classList.add('mui-icon-star');
-            children[i].classList.remove('mui-icon-star-filled');
-          }
-        }
-        //打了几颗星呢
-        console.log(index);
-        this.score=index;
-      });
+        params.append("score", this.score);
+        console.log(this.score)
+        /!* this.$http.post(this.$api.grade, params).then(res => {
+           console.log(res.data);
+           if (res.data.code==0){
+             this.$toast.success(res.data.message);
+             this.$router.push("/record");
+           }else{
+             this.$toast.warning(res.data.message);
+           }
+         })*!/
+      }*/
     }
   }
 </script>

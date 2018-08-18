@@ -3,8 +3,9 @@
  * @type {string}
  * @type {string}
  */
-const  imgRoot = 'http://142.93.207.161:8888' //图片访问路径
-const rootUri = 'http://142.93.207.161:8888/nobelstu'  //发布的IP地址或者域名加端口号
+
+//const rootUri = 'http://142.93.207.161:8888/nobelstu'  //发布的IP地址或者域名加端口号
+const rootUri = 'http://localhost:8080/nobelstu'  //发布的IP地址或者域名加端口号
 //const  rootUri = ''
 const login = rootUri+'/api/login'  //登录 post
 const reg = rootUri+'/api/signup'  //注册 post
@@ -28,7 +29,6 @@ const forget = rootUri+'/api/forget'  //忘记密码  ：/forget post
 const verifyforget = rootUri+'/api/verifyforget'  //忘记密码验证  ：/verifyforget get
 const reset = rootUri+'/api/reset'  //重置密码  ：/reset post
 export default {
-  imgRoot,
   login,
   reg,
   sendverify,

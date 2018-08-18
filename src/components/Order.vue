@@ -87,7 +87,7 @@
         params.append("order.orderid",this.order.orderid);
         params.append("teacher.teacherid", this.order.teacher.teacherid);
         params.append("stu.stuid",stu.stuid);
-        params.append("course.courseid",this.courseid);
+        params.append("course.courseid",this.options.length!=0?this.courseid:this.order.course.courseid);
         this.$http.post(this.$api.choiceOrder, params).then(res => {
           console.log(res.data);
           if(res.data.isChoice){
