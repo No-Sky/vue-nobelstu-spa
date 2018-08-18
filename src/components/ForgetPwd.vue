@@ -16,7 +16,7 @@
         <div class="mui-input-row">
           <label>验证码</label>
           <input id="verifycode" @blur="checkverifycode=validateTextInput($event)" type="text" class="mui-input-clear " placeholder="请输入验证码">
-          <input id="btn-reget" type="button" style="" class="mui-btn btn-code" value="获取"/>
+          <input id="btn-reget" @click="reSend" type="button" style="" class="mui-btn btn-code" value="获取"/>
         </div>
       </form>
       <div class="mui-content-padded">
@@ -53,7 +53,8 @@
         checkemail: false,
         checkverifycode: false,
         checknewpwd: false,
-        checkrepwd: false
+        checkrepwd: false,
+        time: 120
       }
     },
     methods: {
@@ -76,6 +77,35 @@
             this.inputVerifyBox = true;
             let btn = document.getElementById('btn-reget');
             let time = 120;
+            btn.setAttribute("disabled", "disabled");//按钮倒计时
+            let setIn = setInterval(function () {
+              btn.setAttribute("value",--time+'s')
+            }, 1000); //等待时间
+            setTimeout(function () {
+              btn.setAttribute("value","重新获取")
+              btn.removeAttribute("disabled"); //倒计时结束
+              clearInterval(setIn);
+            }, 2*60*1000);
+          } else {
+            this.$toast.warning(res.data.message);
+          }
+        }).catch(err => {
+          console.log(err)
+          btn.innerHTML = '提交';
+          btn.removeAttribute("disabled");
+          this.$toast.warning("请求错误，请重新尝试");
+        })
+      },
+      reSend: function () {
+        let email = document.getElementById('email').value;
+        let params = new URLSearchParams();
+        params.append("email", email);
+        this.$http.post(this.$api.forget, params).then(res => {
+          console.log(res.data);
+          if (res.data.code==0){
+            this.$toast.success("发送成功");
+            let btn = document.getElementById('btn-reget');
+            let time = this.time;
             btn.setAttribute("disabled", "disabled");//按钮倒计时
             let setIn = setInterval(function () {
               btn.setAttribute("value",--time+'s')

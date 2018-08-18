@@ -49,7 +49,8 @@
         checkstuemail: false,
         checkverifycode: false,
         checkstupwd: false,
-        checkrestupwd: false
+        checkrestupwd: false,
+        time: 120
       }
     },
     methods: {
@@ -82,7 +83,7 @@
         }
         //从绑定目标触发
         let btn = ev.currentTarget;
-        let time = 120;
+        let time = this.time;
         btn.setAttribute("disabled", "disabled");//按钮倒计时
         let setIn = setInterval(function () {
           btn.setAttribute("value",--time+'s')
