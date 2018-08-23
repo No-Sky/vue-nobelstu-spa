@@ -56,12 +56,12 @@
           </mu-list-item-content>
         </mu-list-item>
       </mu-list>
-      <mu-divider></mu-divider>
-      <mu-button @click='openModal' full-width color="primary">
-        修改
-      </mu-button>
     </mu-paper>
-
+    <br />
+    <mu-button @click='openModal' full-width color="primary">
+        修改
+    </mu-button>
+    
   <!--页面主内容区结束-->
   <!-- 修改信息模态框 -->
   <div id="modal" class="mui-modal bm_modal">
@@ -227,4 +227,9 @@
   a {
     color: #42b983;
   }
+
+  .mu-raised-button.mu-button-full-width {
+    width: 80%;
+    left: 10%;
+}
 </style>

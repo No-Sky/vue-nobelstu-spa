@@ -11,21 +11,25 @@
         <div class="mui-indexed-list-inner">
           <div class="mui-indexed-list-empty-alert">没有数据</div>
           <ul class="mui-table-view">
-            <!--<li data-group="teacher" class="mui-table-view-divider mui-indexed-list-group">教师</li>
-              <li  @click="toTeacherinfo(1)" :data-value="马某" data-tags="" class="mui-table-view-cell mui-indexed-list-item">马某</li>
-            <li data-group="course" class="mui-table-view-divider mui-indexed-list-group">课程</li>
-              <li   @click="toTeacherinfo(1)" data-value="java" data-tags="" class="mui-table-view-cell mui-indexed-list-item">Java<span class="mui-pull-right" style="font-size: 12px;">授课教师：马某</span></li>-->
-            <li data-group="teacher" class="mui-table-view-divider mui-indexed-list-group">教师</li>
+            <div>
+              <li style="background-color: #EEFFFF;" data-group="teacher" class="mui-table-view-divider mui-indexed-list-group">教师
+              </li>
               <li v-for="teacher in teachers" :key="teacher.teacherid" @click="toTeacherinfo(teacher.teacherid)" :data-value="teacher.teachername"
                   data-tags="" class="mui-table-view-cell mui-indexed-list-item">
                 {{teacher.teachername}}
               </li>
-            <li data-group="course" class="mui-table-view-divider mui-indexed-list-group">课程</li>
+            </div>
+            <div>
+              <li style="background-color: #EEFFFF;" data-group="course" class="mui-table-view-divider mui-indexed-list-group">课程
+              </li>
               <li v-for="course in courses"  @click="toTeacherinfo(course.teacher.teacherid)" :data-value="course.coursename"
                   data-tags="" class="mui-table-view-cell mui-indexed-list-item">
-                 {{course.coursename}}
-                 <span class="mui-pull-right" style="font-size: 12px;">授课教师：{{course.teacher.teachername}}</span>
+                {{course.coursename}}
+                <span class="mui-pull-right" style="font-size: 12px;">
+                授课教师：{{course.teacher.teachername}}
+                </span>
               </li>
+            </div>
           </ul>
         </div>
       </div>

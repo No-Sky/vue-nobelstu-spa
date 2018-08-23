@@ -3,25 +3,25 @@
     <div  class="mui-card-content">
       <div class="mui-input-group">
         <div class="mui-input-row">
-          <label>姓名：</label>
-          <input v-model="regStu.stuname" @blur="checkstuname=validateTextInput($event)" id="stuname" type="text" class="mui-input-clear" placeholder="请输入用户名">
+          <label style="background-color: #FFF;">姓名：</label>
+          <input style="width: 70%;" v-model="regStu.stuname" @blur="checkstuname=validateTextInput($event)" id="stuname" type="text" class="mui-input-clear" placeholder="请输入用户名">
         </div>
         <div class="mui-input-row">
-          <label>邮箱：</label>
-          <input v-model="regStu.stuemail" @blur="checkstuemail=validateTextInput($event)&&validateEmail($event)" id="stuemail" type="email" class="mui-input-clear " placeholder="请输入邮箱">
+          <label style="background-color: #FFF;">邮箱：</label>
+          <input style="width: 70%;" v-model="regStu.stuemail" @blur="checkstuemail=validateTextInput($event)&&validateEmail($event)" id="stuemail" type="email" class="mui-input-clear " placeholder="请输入邮箱">
         </div>
         <div class="mui-input-row">
-          <label>验证码：</label>
+          <label style="background-color: #FFF;">验证码：</label>
           <input v-model="regStu.verifycode" @blur="checkverifycode=validateTextInput($event)" id="verifycode" type="text" class="mui-input-clear " placeholder="请输入验证码">
           <input  type="button" style="" class="mui-btn btn-code" value="获取" @click="clickButton($event)"/>
         </div>
         <div class="mui-input-row">
-          <label>密码：</label>
-          <input id="stupwd" v-model="regStu.stupwd" @blur="checkstupwd=validateTextInput($event)&&validatePwd($event)" type="password" class="mui-input-clear mui-input-password" placeholder="请输入密码">
+          <label style="background-color: #FFF;">密码：</label>
+          <input style="width: 70%;" id="stupwd" v-model="regStu.stupwd" @blur="checkstupwd=validateTextInput($event)&&validatePwd($event)" type="password" class="mui-input-clear mui-input-password" placeholder="请输入密码">
         </div>
         <div class="mui-input-row">
-          <label>确认密码：</label>
-          <input id="restupwd" v-model="regStu.restupwd" @blur="checkrestupwd=validateTextInput($event)&&validateRepwd($event)" type="password" class="mui-input-clear mui-input-password" placeholder="确认密码">
+          <label style="background-color: #FFF;">确认密码：</label>
+          <input style="width: 70%;" id="restupwd" v-model="regStu.restupwd" @blur="checkrestupwd=validateTextInput($event)&&validateRepwd($event)" type="password" class="mui-input-clear mui-input-password" placeholder="确认密码">
         </div>
       </div>
       <div class="mui-card-footer">
@@ -135,7 +135,7 @@
   }
   .mui-input-row label {
     background-color: lightyellow;
-    width: 35%;
+    width: 30%;
     padding: 10px 10px;
   }
   .btn-code{

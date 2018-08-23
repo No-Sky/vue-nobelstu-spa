@@ -4,7 +4,7 @@
       <mu-drawer :open.sync="open" :docked="docked" :style="slideStyle">
         <mu-list>
           <mu-list-item avatar style="margin-top:50px;">
-            <mu-avatar :size="size">
+            <mu-avatar :size="size" style="background-color: whitesmoke;">
               <img :src="!isLogin?headimg:user.stuprofilephoto">
             </mu-avatar>
           </mu-list-item>
@@ -227,7 +227,6 @@ import bus from './common/eventBus.js'
   }
 </script>
 <style>
-  @import '//fonts.useso.com/css?family=Roboto:300,400,500,700,400italic';
   @import 'http://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.css';
   @import "assets/css/clip.css";
   .container{
