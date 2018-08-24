@@ -116,8 +116,8 @@
     width: 90%;
   }
   .mu-raised-button.mu-button-full-width {
-    width: 40%;
-    left: 30%;
+    /*width: 40%;
+    left: 30%;*/
   }
   .container {
     padding-right: 2px;

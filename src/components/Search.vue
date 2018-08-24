@@ -32,7 +32,7 @@
     </div>-->
 
     <mt-search
-      style="height: 7vh;"
+      style="height: 45px;"
       cancel-text="取消"
       v-model="value">
     </mt-search>
@@ -58,7 +58,8 @@
 </template>
 <script>
   import bus from '../common/eventBus.js'
-  import { Toast } from 'mint-ui';
+  import 'mint-ui/lib/style.css'
+
   export default {
     name: 'Search',
     data () {
@@ -124,14 +125,13 @@
     }
   }
 </script>
-<style>
-  html,
-  body {
-    height: 100%;
-    overflow: hidden;
-  }
+<style >
   .mint-indexlist-nav {
-    display: none;
+    display: none !important;
+  }
+  .mint-searchbar-core {
+    height: 26px !important;
+    margin-bottom: 0px !important;
   }
  /* .mui-bar {
     -webkit-box-shadow: none;

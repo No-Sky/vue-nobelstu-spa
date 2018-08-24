@@ -24,7 +24,7 @@ import 'muse-ui/dist/muse-ui.css'
 import {Search} from 'mint-ui'
 import { IndexList, IndexSection } from 'mint-ui';
 import { Cell } from 'mint-ui';
-import 'mint-ui/lib/style.css'
+
 
 Vue.component(Search.name, Search);
 Vue.component(IndexList.name, IndexList);

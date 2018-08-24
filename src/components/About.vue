@@ -1,5 +1,4 @@
 <template>
-  <div>
     <div class="mui-page-content">
       <div class="mui-scroll-wrapper">
         <div class="mui-scroll">
@@ -29,11 +28,12 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 <script>
   export default {}
 </script>
-<style>
-
+<style scoped>
+.mui-page-content{
+  height: 100vh;
+}
 </style>
