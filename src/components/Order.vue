@@ -104,4 +104,24 @@
     }
   }
 </script>
-<style></style>
+<style>
+  .mu-form-item-label {
+    padding-left: 5%;
+    padding-top: 1%;
+  }
+  .mu-text-field-input{
+
+  }
+  .mu-form {
+    width: 90%;
+  }
+  .mu-raised-button.mu-button-full-width {
+    width: 40%;
+    left: 30%;
+  }
+  .container {
+    padding-right: 2px;
+    padding-left: 2px;
+    padding-top: 2%;
+  }
+</style>

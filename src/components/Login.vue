@@ -3,20 +3,20 @@
     <div class="mui-content">
     <form id='login-form' class="mui-input-group">
       <div class="mui-input-row">
-        <label>账号</label>
+        <label style="background-color: #FFF;margin-top: 3px">账号</label>
         <input id='account'  v-model="user.stuemail" type="text" name="stuemail" class="mui-input-clear mui-input" placeholder="请输入登录邮箱">
       </div>
       <div class="mui-input-row">
-        <label>密码</label>
+        <label style="background-color: #FFF;margin-top: 3px"">密码</label>
         <input id='password' v-model="user.stupwd" type="password" name="stupwd" class="mui-input-clear mui-input" placeholder="请输入密码">
       </div>
     </form>
       <div class="mui-content-padded">
         <button id='login' @click="login"  class="mui-btn mui-btn-block mui-btn-primary">登录</button>
         <div class="link-area">
-          <router-link to="/reg">注册账号</router-link>
+          <router-link to="/reg" tag="span">注册账号</router-link>
           <span class="spliter">|</span>
-          <router-link to="/forgetpwd">忘记密码</router-link>
+          <router-link to="/forgetpwd" tag="span">忘记密码</router-link>
         </div>
       </div>
     </div>

@@ -4,7 +4,7 @@
       <mu-drawer :open.sync="open" :docked="docked" :style="slideStyle">
         <mu-list>
           <mu-list-item avatar style="margin-top:50px;">
-            <mu-avatar :size="size">
+            <mu-avatar :size="size" style="background-color: whitesmoke;">
               <img :src="!isLogin?headimg:user.stuprofilephoto">
             </mu-avatar>
           </mu-list-item>

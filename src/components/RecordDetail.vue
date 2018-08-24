@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="mui-content">
+    <div class="mui-content" style="padding-left: 8%;padding-right: 8%;padding-top: 4%;">
       <table width="100%" class="table">
         <tr>
           <th width="35%">订单编号</th>
@@ -147,10 +147,10 @@
     background-color: #f5fafe;
   }
   .table th{
-    background-color: navajowhite;
+    background-color: #22bbff;;
   }
   .table tr{
-    background-color: wheat;
+    background-color: #00a4ff;
   }
   .mui-icon-star-filled:before{
     color: yellow;;

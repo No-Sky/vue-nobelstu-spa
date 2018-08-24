@@ -6,9 +6,8 @@
         <img :src="ad">
       </mu-carousel-item>
     </mu-carousel>
-
     <!--推荐教师-->
-    <mu-container>
+    <mu-container style="margin-top: 7px; width:98%">
       <mu-flex justify-content="center">
         <mu-paper>
           <mu-grid-list>
@@ -46,24 +45,24 @@
         ],
         list: [{
           teacherid: 0,
-          teachername: 'awdawd',
+          teachername: 'test',
           teacherprofilephoto: 'https://images.pexels.com/photos/6803/light-rocks-pot-white.jpg'
         },{
           teacherid: 1,
-          teachername: 'awdawd',
+          teachername: 'test',
           teacherprofilephoto: 'https://images.pexels.com/photos/6803/light-rocks-pot-white.jpg'
         },{
           teacherid: 2,
-          teachername: 'awdawd',
+          teachername: 'test',
           teacherprofilephoto: 'https://images.pexels.com/photos/6803/light-rocks-pot-white.jpg'
         },{
           teacherid: 3,
-          teachername: 'awdawd',
+          teachername: 'test',
           teacherprofilephoto: 'https://images.pexels.com/photos/6803/light-rocks-pot-white.jpg'
         },{
-            teacherid: 4,
-            teachername: 'awdawd',
-            teacherprofilephoto: 'https://images.pexels.com/photos/6803/light-rocks-pot-white.jpg'
+          teacherid: 4,
+          teachername: 'test',
+          teacherprofilephoto: 'https://images.pexels.com/photos/6803/light-rocks-pot-white.jpg'
           }
         ]
       }
@@ -104,7 +103,7 @@
     }
   }
 </script>
-<style scoped>
+<style>
   /*@import '//fonts.useso.com/css?family=Roboto:300,400,500,700,400italic';*/
   /*@import 'http://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.css';*/
   img{
@@ -116,6 +115,6 @@
     padding-left: 2px;
   }
   .mu-grid-tile-titlebar{
-    height: 20%;
+    height: 30px;
   }
 </style>
