@@ -73,7 +73,7 @@
       </mu-appbar>
     </div>
         <keep-alive>
-          <router-view  style="margin-top: 46px" :key="key" @loginChange="getUser"></router-view>
+          <router-view  style="margin-top: 46px"  @loginChange="getUser"></router-view>
         </keep-alive>
     </mu-load-more>
   </div>
@@ -227,7 +227,6 @@ import bus from './common/eventBus.js'
   }
 </script>
 <style>
-  @import '//fonts.useso.com/css?family=Roboto:300,400,500,700,400italic';
   @import 'http://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.css';
   @import "assets/css/clip.css";
   .container{

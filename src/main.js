@@ -6,7 +6,6 @@ import axios from 'axios';
 
 import  './filter/filter.js'
 
-
 //md5
 import md5 from 'js-md5'
 
@@ -19,8 +18,19 @@ import Api from './api/api.js'
 //muse-ui框架
 import MuseUI from 'muse-ui'
 import Message from 'muse-ui-message'
-import Toast from 'muse-ui-toast'
+import MuseToast from 'muse-ui-toast'
 import 'muse-ui/dist/muse-ui.css'
+
+import {Search} from 'mint-ui'
+import { IndexList, IndexSection } from 'mint-ui';
+import { Cell } from 'mint-ui';
+import 'mint-ui/lib/style.css'
+
+Vue.component(Search.name, Search);
+Vue.component(IndexList.name, IndexList);
+Vue.component(IndexSection.name, IndexSection);
+Vue.component(Cell.name, Cell);
+
 
 //照片裁剪插件
 import clipper from './assets/clipper/clipper.js'
@@ -45,7 +55,7 @@ axios.defaults.withCredentials=true;
 Vue.prototype.$http = axios;
 Vue.use(MuseUI);
 Vue.use(Message);
-Vue.use(Toast);
+Vue.use(MuseToast);
 Vue.use(clipper);
 Vue.prototype.$api = Api;
 Vue.prototype.$md5 = md5;
