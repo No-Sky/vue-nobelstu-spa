@@ -133,6 +133,16 @@
     height: 26px !important;
     margin-bottom: 0px !important;
   }
+  .mint-searchbar-inner .mintui-search {
+    font-size: 22px !important;
+    color: #333333cf !important;
+    padding-right: 6px;
+  }
+  .mint-indexsection-index {
+    margin: 0;
+    padding: 10px;
+    background-color: #f7f4f4;
+  }
  /* .mui-bar {
     -webkit-box-shadow: none;
     box-shadow: none;
