@@ -103,13 +103,15 @@
     }
   }
 </script>
-<style>
-  /*@import '//fonts.useso.com/css?family=Roboto:300,400,500,700,400italic';*/
-  /*@import 'http://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.css';*/
+<style scoped>
   img{
     width:100%;
     height: 200px;
   }
+</style>
+<style>
+  /*@import '//fonts.useso.com/css?family=Roboto:300,400,500,700,400italic';*/
+  /*@import 'http://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.css';*/
   .container{
     padding-right: 2px;
     padding-left: 2px;
