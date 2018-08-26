@@ -50,7 +50,7 @@
 </template>
 <script>
   import bus from '../common/eventBus.js'
-  import bg from '../assets/images/4.jpg'
+  import bg from '../assets/images/5.png'
   import logoImg from '../assets/images/logoimg.png'
 
   export default {
@@ -76,7 +76,10 @@
         size: 165,
         avatarStyle: {
           padding: '10px 0',
-          backgroundImage: 'url("'+bg+'")'
+          backgroundImage: 'url("'+bg+'")',
+          width: '100%',
+          height: 'auto',
+          backgroundSize: '100% 100%'
         }
       }
     },

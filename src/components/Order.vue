@@ -113,7 +113,7 @@
 
   }
   .mu-form {
-    width: 90%;
+    width: 90% !important;
   }
   .mu-raised-button.mu-button-full-width {
     /*width: 40%;
