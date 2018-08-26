@@ -61,6 +61,7 @@
     <mu-button @click='openModal' full-width color="primary">
         修改
     </mu-button>
+    <br /><br /><br />
     
   <!--页面主内容区结束-->
   <!-- 修改信息模态框 -->
