@@ -3,7 +3,7 @@
     <div id="inputEmail" v-show="inputEmailBox"  class="mui-content">
       <form class="mui-input-group">
         <div class="mui-input-row">
-          <label style="background-color: #ffffff;width: 22%;border-top: solid 1px;border-top-color: #d6d6d6;padding: 13px 24px;">邮 箱</label>
+          <label style="background-color: #ffffff;width: 25%;border-top: solid 1px;border-top-color: #d6d6d6;padding: 13px 24px;">邮 箱</label>
           <input id='email' @blur="checkemail=validateTextInput($event)&&validateEmail($event)" type="email" class="mui-input-clear mui-input" placeholder="请输入注册邮箱">
         </div>
       </form>
@@ -208,7 +208,7 @@
   .mui-input-row label~input,
   .mui-input-row label~select,
   .mui-input-row label~textarea {
-    width: 78%;
+    width: 75%;
   }
   .mui-checkbox input[type=checkbox],
   .mui-radio input[type=radio] {
