@@ -103,7 +103,7 @@
     }
   }
 </script>
-<style scoped>
+<style>
   /*@import '//fonts.useso.com/css?family=Roboto:300,400,500,700,400italic';*/
   /*@import 'http://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.css';*/
   img{
@@ -116,6 +116,6 @@
     padding-top: 0px;
   }
   .mu-grid-tile-titlebar{
-    height: 30px;
+    height: 34px;
   }
 </style>
