@@ -116,6 +116,6 @@
     padding-top: 0px;
   }
   .mu-grid-tile-titlebar{
-    height: 34px;
+    height: 34px !important;
   }
 </style>
