@@ -7,7 +7,7 @@
         <input id='account'  v-model="user.stuemail" type="text" name="stuemail" class="mui-input-clear mui-input" placeholder="请输入登录邮箱">
       </div>
       <div class="mui-input-row">
-        <label style="background-color: #FFF;margin-top: 3px"">密码</label>
+        <label style="background-color: #FFF;margin-top: 3px">密码</label>
         <input id='password' v-model="user.stupwd" type="password" name="stupwd" class="mui-input-clear mui-input" placeholder="请输入密码">
       </div>
     </form>
@@ -89,11 +89,11 @@
   .mui-input-row label~input,
   .mui-input-row label~select,
   .mui-input-row label~textarea {
-    width: 82%;
+    width: 80% !important;
   }
 .mui-input-group label {
   background-color: lightyellow;
-  width: 18%;
+  width: 20% !important;
 }
   .mui-checkbox input[type=checkbox],
   .mui-radio input[type=radio] {
