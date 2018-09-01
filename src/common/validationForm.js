@@ -11,7 +11,7 @@ function isBlock(val) {
 
 //验证邮箱是否输入正确  输入正确返回true,否则返回false
 function checkEmail(email){
-  var reg = /^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/;
+  var reg = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
   return reg.test(email);
 }
 

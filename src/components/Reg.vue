@@ -101,6 +101,9 @@
             if (res.data.code==0){
               this.$toast.success("发送成功");
             } else {
+            clearInterval(setIn);
+          	btn.setAttribute("value","获取");
+          	btn.removeAttribute("disabled"); //倒计时结束
               this.$toast.warning(res.data.message);
             }
           }).catch(err => {
