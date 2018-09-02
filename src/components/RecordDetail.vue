@@ -58,6 +58,9 @@
           <mu-button v-if="notice.status && notice.order.coursestatus && notice.order.message==null && (notice.order.score==null || notice.order.score==0)" full-width color="primary" :to="{name: 'grade',query: {id: notice.order.orderid}}">留言评分</mu-button>
           <mu-button v-if="notice.status && !notice.order.coursestatus && !notice.order.multiple" full-width color="primary" @click="confirmClass(notice.order.orderid)" >确认上课</mu-button>
         </div>
+        <br><br><br><br><br><br>
+        <br><br><br><br><br><br>
+        <br><br><br><br><br><br>
     </div>
   </div>
 </template>
@@ -139,20 +142,20 @@
 
   .table td,
   .table th {
-    border: 1px solid #cad9ea;
+    border: 1px solid #c6d4da;
     padding: 0 1em 0;
   }
 
   .table tr.alter {
-    background-color: #f5fafe;
+    background-color: #ccd4d8;
   }
   .table th{
-    background-color: #22bbff;;
+    background-color: #c6d4da;
   }
   .table tr{
-    background-color: #00a4ff;
+    background-color: #ccd4d8;
   }
   .mui-icon-star-filled:before{
-    color: yellow;;
+    color: red;
   }
 </style>
