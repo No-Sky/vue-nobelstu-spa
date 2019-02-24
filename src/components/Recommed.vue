@@ -3,7 +3,7 @@
     <!--轮播图-->
     <mu-carousel transition="fade" style="width:100%;height: 200px;" >
       <mu-carousel-item v-for="(ad, index) in ads" :key="index">
-        <img :src="ad">
+        <img :src="ad.pic">
       </mu-carousel-item>
     </mu-carousel>
     <!--推荐教师-->
@@ -28,42 +28,23 @@
 
 <script>
   import bus from '../common/eventBus.js'
-  import carouselImg1 from '../assets/images/1.jpg';
-  import carouselImg2 from '../assets/images/2.jpg';
-  import carouselImg3 from '../assets/images/3.jpg';
-  import carouselImg4 from '../assets/images/4.jpg';
 
   export default {
     name: 'Recommend',
     data () {
       return {
         ads: [
-          carouselImg1,
-          carouselImg2,
-          carouselImg3,
-          carouselImg4
+          {'pic': 'http://img.htmleaf.com/1502/svg-background-1.jpg'}
         ],
         list: [{
           teacherid: 0,
-          teachername: 'test',
+          teachername: '还没有推荐教师',
           teacherprofilephoto: 'https://images.pexels.com/photos/6803/light-rocks-pot-white.jpg'
         },{
           teacherid: 1,
-          teachername: 'test',
+          teachername: '还没有推荐教师',
           teacherprofilephoto: 'https://images.pexels.com/photos/6803/light-rocks-pot-white.jpg'
-        },{
-          teacherid: 2,
-          teachername: 'test',
-          teacherprofilephoto: 'https://images.pexels.com/photos/6803/light-rocks-pot-white.jpg'
-        },{
-          teacherid: 3,
-          teachername: 'test',
-          teacherprofilephoto: 'https://images.pexels.com/photos/6803/light-rocks-pot-white.jpg'
-        },{
-          teacherid: 4,
-          teachername: 'test',
-          teacherprofilephoto: 'https://images.pexels.com/photos/6803/light-rocks-pot-white.jpg'
-          }
+        }
         ]
       }
     },
@@ -75,7 +56,7 @@
       getRecommended: function(){
         this.$http.get(this.$api.recommend).then(res => {
           console.log(res.data);
-          if(res.data){
+          if(res.data.lehght != 0){
             this.list = res.data;
           }
         })
@@ -83,7 +64,7 @@
       getAds: function () {
         this.$http.get(this.$api.ads).then(res => {
           console.log(res.data);
-          if(!res.data){
+          if(res.data.lenght != 0){
             this.ads = res.data;
           }
         })

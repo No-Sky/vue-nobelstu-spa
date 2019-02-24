@@ -3,7 +3,7 @@
     <mu-paper  style="position: fixed;height: 100%;width: 100%;" v-if="orders.length==0" :z-depth="1">
         <div  style="width: 215px; height: 230px;margin-top: 30%;margin-left: auto;margin-right: auto;">
           <img src="../assets/images/empty.png" />
-          <span style="margin-left: 30px;font-size: 16px;">还没有添加空闲时间哦</span>
+          <span style="margin-left: 30px;font-size: 16px;">该教师还没有添加空闲时间哦</span>
         </div>
     </mu-paper>
     <mu-paper :z-depth="1" >

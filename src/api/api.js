@@ -4,7 +4,7 @@
  * @type {string}
  */
 
-const rootUri = 'http://142.93.207.161:8888/nobelstu'  //发布的IP地址或者域名加端口号
+const rootUri = 'http://35.241.72.59/nobelstu'  //发布的IP地址或者域名加端口号
 //const rootUri = 'http://localhost:8080/nobelstu'  //发布的IP地址或者域名加端口号
 //const  rootUri = ''
 const login = rootUri+'/api/login'  //登录 post
